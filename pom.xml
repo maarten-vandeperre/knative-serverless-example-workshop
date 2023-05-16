@@ -12,6 +12,7 @@
     <module>application/core/domain/v1</module>
     <module>application/core/usecases/v1</module>
     <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
+    <module>application/infrastructure/dataproviders/postgres-dataprovider/v1</module>
   </modules>
 
   <properties>
@@ -35,6 +36,11 @@
         <version>${quarkus.platform.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.6.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -46,8 +46,10 @@ class PersonResource(
                     )
                 ).ref
             ).build()
-        } catch (e: CreatePersonUseCase.ValidationException) {
+        } catch (e: UpdatePersonUseCase.ValidationException) {
             return Response.status(422, e.localizedMessage).build()
+        } catch (e: UpdatePersonUseCase.NotFoundException) {
+            return Response.status(404, e.localizedMessage).build()
         }
     }
 
@@ -58,7 +60,7 @@ class PersonResource(
         try {
             deletePersonUseCase.execute(DeletePersonUseCase.Request(ref = ref))
             return Response.ok().build()
-        } catch (e: CreatePersonUseCase.ValidationException) {
+        } catch (e: DeletePersonUseCase.ValidationException) {
             return Response.status(422, e.localizedMessage).build()
         }
     }
@@ -69,8 +71,10 @@ class PersonResource(
     fun getPerson(@PathParam("ref") ref: String): Response {
         try {
             return Response.ok(getPersonUseCase.execute(GetPersonUseCase.Request(ref = ref)).person).build()
-        } catch (e: CreatePersonUseCase.ValidationException) {
+        } catch (e: GetPersonUseCase.ValidationException) {
             return Response.status(422, e.localizedMessage).build()
+        } catch (e: GetPersonUseCase.NotFoundException) {
+            return Response.status(404, e.localizedMessage).build()
         }
     }
 

@@ -7,7 +7,7 @@ interface PersonRepository {
     fun save(person: DbPerson): String
     fun exists(ref: UUID): Boolean
     fun delete(ref: UUID)
-    fun get(ref: UUID): DbPerson
+    fun get(ref: UUID): DbPerson?
     fun search(): List<DbPerson>
 
     data class DbPerson(

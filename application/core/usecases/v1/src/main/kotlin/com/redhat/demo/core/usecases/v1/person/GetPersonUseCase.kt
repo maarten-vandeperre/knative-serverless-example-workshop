@@ -18,6 +18,7 @@ interface GetPersonUseCase {
     )
 
     class ValidationException(message: String) : Exception(message)
+    class NotFoundException(message: String) : Exception(message)
 }
 
 class DefaultGetPersonUseCase(
@@ -25,18 +26,18 @@ class DefaultGetPersonUseCase(
 ) : GetPersonUseCase {
     override fun execute(requestData: GetPersonUseCase.Request): GetPersonUseCase.Response {
         if (requestData.ref == null) {
-            throw UpdatePersonUseCase.ValidationException("Ref should not be null")
+            throw GetPersonUseCase.ValidationException("Ref should not be null")
         } else {
             try {
                 UUID.fromString(requestData.ref)
             } catch (e: Exception) {
-                throw UpdatePersonUseCase.ValidationException("Ref is not a UUID format")
+                throw GetPersonUseCase.ValidationException("Ref is not a UUID format")
             }
         }
         if (!personRepository.exists(UUID.fromString(requestData.ref))) {
-            throw UpdatePersonUseCase.ValidationException("No person with ref is found")
+            throw GetPersonUseCase.NotFoundException("No person with ref is found")
         }
-        val dbPerson = personRepository.get(UUID.fromString(requestData.ref))
+        val dbPerson = personRepository.get(UUID.fromString(requestData.ref))!!
         return GetPersonUseCase.Response(
             ReadPerson(
                 ref = dbPerson.ref.toString(),

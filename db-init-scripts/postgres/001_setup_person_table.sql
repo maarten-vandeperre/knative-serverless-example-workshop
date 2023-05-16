@@ -3,7 +3,7 @@ CREATE TABLE people
     id         serial PRIMARY KEY,
     ref        VARCHAR(50) UNIQUE NOT NULL,
     first_name VARCHAR(50)        NOT NULL,
-    last_name  VARCHAR(50) UNIQUE NOT NULL,
+    last_name  VARCHAR(50)        NOT NULL,
     birth_date VARCHAR(10)
 );
 
