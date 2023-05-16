@@ -4,27 +4,97 @@ import com.redhat.demo.core.usecases.repositories.v1.AddressRepository
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-class PostgresAddressRepository: AddressRepository {
-    private val db: MutableMap<UUID, AddressRepository.DbAddress> = ConcurrentHashMap<UUID, AddressRepository.DbAddress>()
+
+class PostgresAddressRepository(
+    private val jdbcTemplate: JdbcTemplate
+) : AddressRepository {
 
     override fun save(address: AddressRepository.DbAddress): String {
-        db[address.ref] = address
+        if(exists(address.ref)){
+            jdbcTemplate.execute(
+                """
+                update addresses 
+                set ref = ?, 
+                address_line1 = ?, 
+                address_line2 = ?, 
+                address_line3 = ?
+                country_code = ?
+                where ref = ?;
+            """.trimIndent(),
+                listOf(
+                    address.ref.toString(),
+                    address.addressLine1,
+                    address.addressLine2,
+                    address.addressLine3,
+                    address.countryIsoCode,
+                    address.ref.toString()
+                )
+            )
+        } else {
+            jdbcTemplate.execute(
+                """
+                INSERT INTO addresses (ref, addres_line1, addres_line2, addres_line3, country_code)
+                VALUES (?, ?, ?, ?, ?);
+            """.trimIndent(),
+                listOf(
+                    address.ref.toString(),
+                    address.addressLine1,
+                    address.addressLine2,
+                    address.addressLine3,
+                    address.countryIsoCode
+                )
+            )
+        }
         return address.ref.toString()
     }
 
     override fun exists(ref: UUID): Boolean {
-        return db.contains(ref)
+        val result = jdbcTemplate.query(
+            "select count(*) as c from addresses where ref = ?",
+            listOf(ref.toString())
+        ) {
+            1 == it.getInt("c")
+        }
+        return (result ?: 0) == 1
     }
 
     override fun delete(ref: UUID) {
-        db.remove(ref)
+        jdbcTemplate.execute(
+            "delete from addresses where ref = ?",
+            listOf(ref.toString())
+        )
     }
 
-    override fun get(ref: UUID): AddressRepository.DbAddress {
-        return db.get(ref)!!
+    override fun get(ref: UUID): AddressRepository.DbAddress? {
+        return jdbcTemplate.query(
+            "select * from addresses where ref = ?",
+            listOf(ref.toString())
+        ) {
+            AddressRepository.DbAddress(
+                ref = UUID.fromString(it.getString("ref")),
+                addressLine1 = it.getString("address_line_1"),
+                addressLine2 = it.getString("address_line_2"),
+                addressLine3 = it.getString("address_line_3"),
+                countryIsoCode = it.getString("country_code")
+            )
+        }
     }
 
     override fun search(): List<AddressRepository.DbAddress> {
-        return db.values.toList()
+        return jdbcTemplate.queryForList(
+            "select * from people"
+        ) {
+            AddressRepository.DbAddress(
+                ref = UUID.fromString(it.getString("ref")),
+                addressLine1 = it.getString("address_line_1"),
+                addressLine2 = it.getString("address_line_2"),
+                addressLine3 = it.getString("address_line_3"),
+                countryIsoCode = it.getString("country_code")
+            )
+        }
+    }
+
+    companion object {
+        private val db: MutableMap<UUID, AddressRepository.DbAddress> = ConcurrentHashMap<UUID, AddressRepository.DbAddress>()
     }
 }

@@ -2,7 +2,6 @@ package com.redhat.demo.core.usecases.v1.address
 
 import com.redhat.demo.core.domain.v1.ReadAddress
 import com.redhat.demo.core.usecases.repositories.v1.AddressRepository
-import com.redhat.demo.core.usecases.v1.person.UpdatePersonUseCase
 import java.util.*
 
 interface GetAddressUseCase {
@@ -19,6 +18,7 @@ interface GetAddressUseCase {
     )
 
     class ValidationException(message: String) : Exception(message)
+    class NotFoundException(message: String) : Exception(message)
 }
 
 class DefaultGetAddressUseCase(
@@ -26,18 +26,18 @@ class DefaultGetAddressUseCase(
 ) : GetAddressUseCase {
     override fun execute(requestData: GetAddressUseCase.Request): GetAddressUseCase.Response {
         if (requestData.ref == null) {
-            throw UpdateAddressUseCase.ValidationException("Ref should not be null")
+            throw GetAddressUseCase.ValidationException("Ref should not be null")
         } else {
             try {
                 UUID.fromString(requestData.ref)
             } catch (e: Exception) {
-                throw UpdateAddressUseCase.ValidationException("Ref is not a UUID format")
+                throw GetAddressUseCase.ValidationException("Ref is not a UUID format")
             }
         }
         if (!addressRepository.exists(UUID.fromString(requestData.ref))) {
-            throw UpdatePersonUseCase.ValidationException("No person with ref is found")
+            throw GetAddressUseCase.NotFoundException("No person with ref is found")
         }
-        val dbAddress = addressRepository.get(UUID.fromString(requestData.ref))
+        val dbAddress = addressRepository.get(UUID.fromString(requestData.ref))!!
         return GetAddressUseCase.Response(
             ReadAddress(
                 ref = dbAddress.ref.toString(),

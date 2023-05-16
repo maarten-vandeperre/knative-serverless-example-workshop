@@ -1,7 +1,6 @@
 package com.redhat.demo.core.usecases.v1.address
 
 import com.redhat.demo.core.usecases.repositories.v1.AddressRepository
-import com.redhat.demo.core.usecases.v1.person.UpdatePersonUseCase
 import java.util.*
 
 interface UpdateAddressUseCase {
@@ -22,6 +21,7 @@ interface UpdateAddressUseCase {
     )
 
     class ValidationException(message: String) : Exception(message)
+    class NotFoundException(message: String) : Exception(message)
 }
 
 class DefaultUpdateAddressUseCase(
@@ -38,16 +38,16 @@ class DefaultUpdateAddressUseCase(
             }
         }
         if (requestData.addressLine1 == null) {
-            throw CreateAddressUseCase.ValidationException("Address line 1 should not be null")
+            throw UpdateAddressUseCase.ValidationException("Address line 1 should not be null")
         }
         if (requestData.addressLine2 == null) {
-            throw CreateAddressUseCase.ValidationException("Address line 2 should not be null")
+            throw UpdateAddressUseCase.ValidationException("Address line 2 should not be null")
         }
         if (requestData.countryIsoCode == null) {
-            throw CreateAddressUseCase.ValidationException("Country code should not be null")
+            throw UpdateAddressUseCase.ValidationException("Country code should not be null")
         }
-        if(!addressRepository.exists(UUID.fromString(requestData.ref))){
-            throw UpdatePersonUseCase.ValidationException("No address with ref is found")
+        if (!addressRepository.exists(UUID.fromString(requestData.ref))) {
+            throw UpdateAddressUseCase.NotFoundException("No address with ref is found")
         }
         return UpdateAddressUseCase.Response(
             addressRepository.save(

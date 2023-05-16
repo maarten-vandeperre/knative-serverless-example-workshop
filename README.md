@@ -1,6 +1,8 @@
 use cases => validation ugly
 naming domain => ugly 
 no created status, but just ref
+DRY
+startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev
 
 
 

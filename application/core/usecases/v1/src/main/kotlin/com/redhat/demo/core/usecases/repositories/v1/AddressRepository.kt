@@ -7,7 +7,7 @@ interface AddressRepository {
     fun save(Address: DbAddress): String
     fun exists(ref: UUID): Boolean
     fun delete(ref: UUID)
-    fun get(ref: UUID): DbAddress
+    fun get(ref: UUID): DbAddress?
     fun search(): List<DbAddress>
 
     data class DbAddress(

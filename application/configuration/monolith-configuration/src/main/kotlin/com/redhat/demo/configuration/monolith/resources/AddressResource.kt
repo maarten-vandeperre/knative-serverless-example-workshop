@@ -48,8 +48,10 @@ class AddressResource(
                     )
                 ).ref
             ).build()
-        } catch (e: CreateAddressUseCase.ValidationException) {
+        } catch (e: UpdateAddressUseCase.ValidationException) {
             return Response.status(422, e.localizedMessage).build()
+        } catch (e: UpdateAddressUseCase.NotFoundException) {
+            return Response.status(404, e.localizedMessage).build()
         }
     }
 
@@ -59,7 +61,7 @@ class AddressResource(
         try {
             deleteAddressUseCase.execute(DeleteAddressUseCase.Request(ref = ref))
             return Response.ok().build()
-        } catch (e: CreateAddressUseCase.ValidationException) {
+        } catch (e: DeleteAddressUseCase.ValidationException) {
             return Response.status(422, e.localizedMessage).build()
         }
     }
@@ -70,8 +72,10 @@ class AddressResource(
     fun getAddress(@PathParam("ref") ref: String): Response {
         try {
             return Response.ok(getAddressUseCase.execute(GetAddressUseCase.Request(ref = ref)).address).build()
-        } catch (e: CreateAddressUseCase.ValidationException) {
+        } catch (e: GetAddressUseCase.ValidationException) {
             return Response.status(422, e.localizedMessage).build()
+        } catch (e: GetAddressUseCase.NotFoundException) {
+            return Response.status(404, e.localizedMessage).build()
         }
     }
 
