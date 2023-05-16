@@ -8,7 +8,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>application/configuration/monolith-configuration</module>
     <module>application/core/domain/v1</module>
     <module>application/core/usecases/v1</module>
     <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
@@ -169,6 +168,12 @@
         <skipITs>false</skipITs>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
+    </profile>
+    <profile>
+      <id>monolith</id>
+      <modules>
+        <module>application/configuration/monolith-configuration</module>
+      </modules>
     </profile>
   </profiles>
 </project>
