@@ -1,3 +1,9 @@
+use cases => validation ugly
+naming domain => ugly 
+no created status, but just ref
+
+
+
 # knative-demo
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.

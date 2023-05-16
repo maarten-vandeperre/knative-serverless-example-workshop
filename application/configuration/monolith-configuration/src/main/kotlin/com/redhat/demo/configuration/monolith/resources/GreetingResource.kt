@@ -1,4 +1,4 @@
-package com.redhat.demo.com.redhat.demo.configuration
+package com.redhat.demo.configuration.monolith.resources
 
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path

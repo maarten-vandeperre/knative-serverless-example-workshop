@@ -11,6 +11,7 @@
     <module>application/configuration/monolith-configuration</module>
     <module>application/core/domain/v1</module>
     <module>application/core/usecases/v1</module>
+    <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
   </modules>
 
   <properties>

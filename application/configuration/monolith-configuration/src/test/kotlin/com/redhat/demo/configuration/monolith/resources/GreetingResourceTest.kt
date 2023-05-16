@@ -1,4 +1,4 @@
-package com.redhat.demo.configuration.monolith
+package com.redhat.demo.configuration.monolith.resources
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured

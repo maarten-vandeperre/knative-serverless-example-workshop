@@ -16,8 +16,23 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.redhat.demo</groupId>
+      <artifactId>knative-demo-person-address-service-core-domain-v1</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.redhat.demo</groupId>
+      <artifactId>knative-demo-person-address-service-core-usecases-v1</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.redhat.demo</groupId>
+      <artifactId>knative-demo-person-address-service-infrastructure-dataproviders-inmemory-v1</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-reactive</artifactId>
+      <artifactId>quarkus-resteasy-jackson</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
