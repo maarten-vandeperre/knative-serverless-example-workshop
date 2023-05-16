@@ -7,13 +7,6 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <modules>
-    <module>application/core/domain/v1</module>
-    <module>application/core/usecases/v1</module>
-    <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
-    <module>application/infrastructure/dataproviders/postgres-dataprovider/v1</module>
-  </modules>
-
   <properties>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
     <kotlin.version>1.8.10</kotlin.version>
@@ -173,6 +166,10 @@
       <id>monolith</id>
       <modules>
         <module>application/configuration/monolith-configuration</module>
+        <module>application/core/domain/v1</module>
+        <module>application/core/usecases/v1</module>
+        <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
+        <module>application/infrastructure/dataproviders/postgres-dataprovider/v1</module>
       </modules>
     </profile>
   </profiles>
