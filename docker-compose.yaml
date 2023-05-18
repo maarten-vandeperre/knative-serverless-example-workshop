@@ -12,6 +12,17 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
       - ./db-init-scripts/postgres:/docker-entrypoint-initdb.d
+  mongo:
+    ports:
+      - '27017:27017'
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    image: mongo:4.2.24
 volumes:
   postgres:
     driver: local

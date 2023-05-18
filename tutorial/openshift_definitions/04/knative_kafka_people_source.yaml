@@ -1,0 +1,19 @@
+apiVersion: sources.knative.dev/v1beta1
+kind: KafkaSource
+metadata:
+  name: person-data-changed-kafka-source
+  namespace: <NAMESPACE>
+spec:
+  bootstrapServers:
+    - knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092
+  consumerGroup: person-data-changed-consumer-group
+  consumers: 1
+  initialOffset: latest
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: knative-service-microservice-account
+      namespace: <NAMESPACE>
+  topics:
+    - person-data-changed-topic

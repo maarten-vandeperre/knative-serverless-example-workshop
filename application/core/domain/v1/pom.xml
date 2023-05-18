@@ -10,7 +10,7 @@
     <relativePath>../../../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>knative-demo-person-address-service-core-domain-v1</artifactId>
+  <artifactId>core-domain-v1</artifactId>
   <name>core-domain-v1</name>
 
   <properties>

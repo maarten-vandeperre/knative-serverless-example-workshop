@@ -3,8 +3,12 @@ naming domain => ugly
 no created status, but just ref
 DRY
 startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -Pmonolith
+startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -microservice-account
 
 http://localhost:8080/q/graphql-ui/?
+
+
+security
 
 
 
