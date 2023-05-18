@@ -1,6 +1,7 @@
 package com.redhat.demo.core.usecases.v1.person
 
 import com.redhat.demo.core.usecases.repositories.v1.PersonRepository
+import com.redhat.demo.core.usecases.v1.person.CreatePersonUseCase.ValidationException
 import java.util.*
 
 interface CreatePersonUseCase {
@@ -11,7 +12,8 @@ interface CreatePersonUseCase {
     data class Request(
         val firstName: String?,
         val lastName: String?,
-        val birthDate: String?
+        val birthDate: String?,
+        val addressRef: String?
     )
 
     data class Response(
@@ -26,10 +28,17 @@ class DefaultCreatePersonUseCase(
 ) : CreatePersonUseCase {
     override fun execute(requestData: CreatePersonUseCase.Request): CreatePersonUseCase.Response {
         if (requestData.firstName == null) {
-            throw CreatePersonUseCase.ValidationException("First name should not be null")
+            throw ValidationException("First name should not be null")
         }
         if (requestData.lastName == null) {
-            throw CreatePersonUseCase.ValidationException("Last name should not be null")
+            throw ValidationException("Last name should not be null")
+        }
+        if(requestData.addressRef != null){
+            try {
+                UUID.fromString(requestData.addressRef)
+            } catch (e: Exception) {
+                throw ValidationException("Address ref is not a UUID format")
+            }
         }
         return CreatePersonUseCase.Response(
             personRepository.save(
@@ -37,7 +46,8 @@ class DefaultCreatePersonUseCase(
                     ref = UUID.randomUUID(),
                     firstName = requestData.firstName,
                     lastName = requestData.lastName,
-                    birthDate = requestData.birthDate
+                    birthDate = requestData.birthDate,
+                    addressRef = requestData.addressRef?.let { UUID.fromString(it) }
                 )
             )
         )

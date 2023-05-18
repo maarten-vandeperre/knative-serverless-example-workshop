@@ -64,27 +64,39 @@ class PostgresPersonRepository(
 
     override fun get(ref: UUID): PersonRepository.DbPerson? {
         return jdbcTemplate.query(
-            "select * from people where ref = ?",
+            """
+                select *, a.ref as address_ref
+                from people p
+                left join addresses a on a.id = p.address
+                where p.ref = ?
+            """.trimIndent(),
             listOf(ref.toString())
         ) {
             PersonRepository.DbPerson(
                 ref = UUID.fromString(it.getString("ref")),
                 firstName = it.getString("first_name"),
                 lastName = it.getString("last_name"),
-                birthDate = it.getString("birth_date")
+                birthDate = it.getString("birth_date"),
+                addressRef = it.getString("address_ref")?.let { UUID.fromString(it) }
             )
         }
     }
 
     override fun search(): List<PersonRepository.DbPerson> {
         return jdbcTemplate.queryForList(
-            "select * from people"
+            """
+                select *, a.ref as address_ref
+                from people p
+                left join addresses a on a.id = p.address
+                where p.ref = ?
+            """.trimIndent()
         ) {
             PersonRepository.DbPerson(
                 ref = UUID.fromString(it.getString("ref")),
                 firstName = it.getString("first_name"),
                 lastName = it.getString("last_name"),
-                birthDate = it.getString("birth_date")
+                birthDate = it.getString("birth_date"),
+                addressRef = it.getString("address_ref")?.let { UUID.fromString(it) }
             )
         }
     }

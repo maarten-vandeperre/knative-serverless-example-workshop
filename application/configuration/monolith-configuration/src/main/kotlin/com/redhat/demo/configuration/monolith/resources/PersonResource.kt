@@ -22,7 +22,8 @@ class PersonResource(
                     CreatePersonUseCase.Request(
                         firstName = data.firstName,
                         lastName = data.lastName,
-                        birthDate = data.birthDate
+                        birthDate = data.birthDate,
+                        addressRef = data.addressRef,
                     )
                 ).ref
             ).build()
@@ -42,7 +43,8 @@ class PersonResource(
                         ref = ref,
                         firstName = data.firstName,
                         lastName = data.lastName,
-                        birthDate = data.birthDate
+                        birthDate = data.birthDate,
+                        addressRef = data.addressRef
                     )
                 ).ref
             ).build()
@@ -90,6 +92,7 @@ class PersonResource(
     open class RequestData(
         var firstName: String?,
         var lastName: String?,
-        var birthDate: String?
+        var birthDate: String?,
+        var addressRef: String?
     )
 }

@@ -33,7 +33,7 @@ class PostgresAddressRepository(
         } else {
             jdbcTemplate.execute(
                 """
-                INSERT INTO addresses (ref, addres_line1, addres_line2, addres_line3, country_code)
+                INSERT INTO addresses (ref, address_line1, address_line2, address_line3, country_code)
                 VALUES (?, ?, ?, ?, ?);
             """.trimIndent(),
                 listOf(

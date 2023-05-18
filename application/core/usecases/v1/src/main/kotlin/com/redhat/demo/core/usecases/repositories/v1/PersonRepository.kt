@@ -14,6 +14,7 @@ interface PersonRepository {
         val ref: UUID,
         val firstName: String,
         val lastName: String,
-        val birthDate: String?
+        val birthDate: String?,
+        val addressRef: UUID?
     )
 }

@@ -1,10 +1,13 @@
 package com.redhat.demo.configuration.monolith.config
 
+import com.redhat.demo.core.usecases.repositories.v1.AccountRepository
 import com.redhat.demo.core.usecases.repositories.v1.AddressRepository
 import com.redhat.demo.core.usecases.repositories.v1.PersonRepository
+import com.redhat.demo.infra.dataproviders.inmemory.repositories.InMemoryAccountRepository
 import com.redhat.demo.infra.dataproviders.inmemory.repositories.InMemoryAddressRepository
 import com.redhat.demo.infra.dataproviders.inmemory.repositories.InMemoryPersonRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.JdbcTemplate
+import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresAccountRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresAddressRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresJdbcTemplate
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresPersonRepository
@@ -19,39 +22,47 @@ class RepositoryConfig(
     @ConfigProperty(name = "db.user", defaultValue = "not-set") user: String,
     @ConfigProperty(name = "db.password", defaultValue = "not-set") password: String?
 ) {
-    private val postgresJdbcTemplate: JdbcTemplate?
-    private val databaseType: DatabaseType
+  private val postgresJdbcTemplate: JdbcTemplate?
+  private val databaseType: DatabaseType
 
-    init {
-        this.databaseType = when(dbType){
-            "IN_MEMORY" -> DatabaseType.IN_MEMORY
-            "POSTGRES" -> DatabaseType.POSTGRES
-            else -> throw IllegalStateException("$dbType is not yet supported")
-        }
-        if(databaseType == DatabaseType.POSTGRES){
-            this.postgresJdbcTemplate = PostgresJdbcTemplate(connectionUrl!!, user!!, password!!)
-        } else {
-            this.postgresJdbcTemplate = null
-        }
+  init {
+    this.databaseType = when (dbType) {
+      "IN_MEMORY" -> DatabaseType.IN_MEMORY
+      "POSTGRES" -> DatabaseType.POSTGRES
+      else -> throw IllegalStateException("$dbType is not yet supported")
     }
+    if (databaseType == DatabaseType.POSTGRES) {
+      this.postgresJdbcTemplate = PostgresJdbcTemplate(connectionUrl!!, user!!, password!!)
+    } else {
+      this.postgresJdbcTemplate = null
+    }
+  }
 
-    @Produces
-    fun inMemoryPersonRepository(): PersonRepository {
-        return when(databaseType){
-            DatabaseType.IN_MEMORY -> InMemoryPersonRepository()
-            DatabaseType.POSTGRES -> PostgresPersonRepository(postgresJdbcTemplate!!)
-        }
+  @Produces
+  fun personRepository(): PersonRepository {
+    return when (databaseType) {
+      DatabaseType.IN_MEMORY -> InMemoryPersonRepository()
+      DatabaseType.POSTGRES -> PostgresPersonRepository(postgresJdbcTemplate!!)
     }
+  }
 
-    @Produces
-    fun inMemoryAddressRepository(): AddressRepository {
-        return when(databaseType){
-            DatabaseType.IN_MEMORY -> InMemoryAddressRepository()
-            DatabaseType.POSTGRES -> PostgresAddressRepository(postgresJdbcTemplate!!)
-        }
+  @Produces
+  fun addressRepository(): AddressRepository {
+    return when (databaseType) {
+      DatabaseType.IN_MEMORY -> InMemoryAddressRepository()
+      DatabaseType.POSTGRES -> PostgresAddressRepository(postgresJdbcTemplate!!)
     }
+  }
 
-    enum class DatabaseType {
-        IN_MEMORY, POSTGRES
+  @Produces
+  fun accountRepository(addressRepository: AddressRepository, personRepository: PersonRepository): AccountRepository {
+    return when (databaseType) {
+      DatabaseType.IN_MEMORY -> InMemoryAccountRepository(addressRepository, personRepository)
+      DatabaseType.POSTGRES -> PostgresAccountRepository(postgresJdbcTemplate!!)
     }
+  }
+
+  enum class DatabaseType {
+    IN_MEMORY, POSTGRES
+  }
 }

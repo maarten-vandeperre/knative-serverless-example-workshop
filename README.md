@@ -4,6 +4,8 @@ no created status, but just ref
 DRY
 startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -Pmonolith
 
+http://localhost:8080/q/graphql-ui/?
+
 
 
 # knative-demo
