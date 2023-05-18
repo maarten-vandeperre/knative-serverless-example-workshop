@@ -88,7 +88,6 @@ class PostgresPersonRepository(
                 select *, a.ref as address_ref
                 from people p
                 left join addresses a on a.id = p.address
-                where p.ref = ?
             """.trimIndent()
         ) {
             PersonRepository.DbPerson(

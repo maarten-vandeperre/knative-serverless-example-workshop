@@ -72,9 +72,9 @@ class PostgresAddressRepository(
         ) {
             AddressRepository.DbAddress(
                 ref = UUID.fromString(it.getString("ref")),
-                addressLine1 = it.getString("address_line_1"),
-                addressLine2 = it.getString("address_line_2"),
-                addressLine3 = it.getString("address_line_3"),
+                addressLine1 = it.getString("address_line1"),
+                addressLine2 = it.getString("address_line2"),
+                addressLine3 = it.getString("address_line3"),
                 countryIsoCode = it.getString("country_code")
             )
         }
@@ -82,13 +82,13 @@ class PostgresAddressRepository(
 
     override fun search(): List<AddressRepository.DbAddress> {
         return jdbcTemplate.queryForList(
-            "select * from people"
+            "select * from addresses"
         ) {
             AddressRepository.DbAddress(
                 ref = UUID.fromString(it.getString("ref")),
-                addressLine1 = it.getString("address_line_1"),
-                addressLine2 = it.getString("address_line_2"),
-                addressLine3 = it.getString("address_line_3"),
+                addressLine1 = it.getString("address_line1"),
+                addressLine2 = it.getString("address_line2"),
+                addressLine3 = it.getString("address_line3"),
                 countryIsoCode = it.getString("country_code")
             )
         }

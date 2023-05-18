@@ -21,3 +21,9 @@
 * sh tutorial/scripts/02_script.sh
 
 
+
+
+* https://monolith-maarten-playground.apps.ocp4-bm.redhat.arrowlabs.be/q/graphql-ui/?query=query%20%7B%0A%20%20allAccounts%20%7B%0A%20%20%20%20firstName%0A%20%20%20%20lastName%0A%20%20%7D%0A%7D
+* https://monolith-maarten-playground.apps.ocp4-bm.redhat.arrowlabs.be/q/openapi?format=json
+* https://monolith-maarten-playground.apps.ocp4-bm.redhat.arrowlabs.be/q/swagger-ui/
+

@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION="0.0.4" #version of the application
+VERSION="0.0.9" #version of the application
 NAMESPACE="maarten-playground" #name of your OpenShift namespace
 
 #build uber jar for monolith

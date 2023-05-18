@@ -1,9 +1,13 @@
 package com.redhat.demo.configuration.monolith.resources
 
+import com.redhat.demo.core.domain.v1.ReadPerson
 import com.redhat.demo.core.usecases.v1.person.*
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
+import org.eclipse.microprofile.openapi.annotations.Operation
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema
+import org.eclipse.microprofile.openapi.annotations.tags.Tag
 
 @Path("/api/people")
 class PersonResource(
@@ -15,6 +19,8 @@ class PersonResource(
 ) {
     @POST
     @Consumes(value = [MediaType.APPLICATION_JSON])
+    @Operation(summary = "Create person")
+    @Tag(name = "PEOPLE_API")
     fun createPerson(data: RequestData): Response {
         try {
             return Response.ok(
@@ -35,6 +41,8 @@ class PersonResource(
     @PUT
     @Path("/{ref}")
     @Consumes(value = [MediaType.APPLICATION_JSON])
+    @Operation(summary = "Update person")
+    @Tag(name = "PEOPLE_API")
     fun updatePerson(@PathParam("ref") ref: String, data: RequestData): Response {
         try {
             return Response.ok(
@@ -58,6 +66,8 @@ class PersonResource(
     @DELETE
     @Path("/{ref}")
     @Produces(value = [MediaType.APPLICATION_JSON])
+    @Operation(summary = "Delete person")
+    @Tag(name = "PEOPLE_API")
     fun deletePerson(@PathParam("ref") ref: String): Response {
         try {
             deletePersonUseCase.execute(DeletePersonUseCase.Request(ref = ref))
@@ -70,6 +80,9 @@ class PersonResource(
     @GET
     @Path("/{ref}")
     @Produces(value = [MediaType.APPLICATION_JSON])
+    @Operation(summary = "Get an individual person")
+    @Tag(name = "PEOPLE_API")
+    @APIResponseSchema(value = ReadPerson::class)
     fun getPerson(@PathParam("ref") ref: String): Response {
         try {
             return Response.ok(getPersonUseCase.execute(GetPersonUseCase.Request(ref = ref)).person).build()
@@ -81,6 +94,9 @@ class PersonResource(
     }
 
     @GET
+    @Operation(summary = "Get all people")
+    @Tag(name = "PEOPLE_API")
+    @APIResponseSchema(value = ReadPerson::class)
     fun searchPeople(): Response {
         try {
             return Response.ok(searchPeopleUseCase.execute(SearchPeopleUseCase.Request()).people).build()
