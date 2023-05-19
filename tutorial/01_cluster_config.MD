@@ -1,0 +1,1 @@
+* knative eventing and serving operator and namespace

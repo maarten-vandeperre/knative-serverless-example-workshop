@@ -1,4 +1,5 @@
 * oc login
+* enable kafka connect
 * oc new-app \
   -e MONGO_INITDB_ROOT_USERNAME=mongo \
   -e MONGO_INITDB_ROOT_PASSWORD=mongo \
@@ -19,13 +20,19 @@
 * go to POD > psql -h localhost -d knative_demo -U postgres -W
 * select * from people;
 
-
+* connect bootstrap url knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092
 
 * oc exec -n dieter -it my-kafka-cluster-kafka-0 \
   -- bin/kafka-console-producer.sh \
   --bootstrap-server knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092 \
   --topic person-data-changed-topic 
-  
+
+
+
+* oc exec -it knative-demo-cluster-kafka-0 \
+  -- bin/kafka-console-consumer.sh \
+  --bootstrap-server knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092 \
+  --topic dbhistory.people
 
 
 {
