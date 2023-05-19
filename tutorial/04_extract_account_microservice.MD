@@ -2,7 +2,8 @@
 * oc new-app \
   -e MONGO_INITDB_ROOT_USERNAME=mongo \
   -e MONGO_INITDB_ROOT_PASSWORD=mongo \
-  mongo:4.2.24
+  mongo:4.2.24 \
+  --name knative-mongo
 * https://role.rhu.redhat.com/rol-rhu/app/courses/do244-1.23/pages/ch03
 * oc get kafka
 * oc get pod
@@ -18,6 +19,13 @@
 * go to POD > psql -h localhost -d knative_demo -U postgres -W
 * select * from people;
 
+
+
+* oc exec -n dieter -it my-kafka-cluster-kafka-0 \
+  -- bin/kafka-console-producer.sh \
+  --bootstrap-server knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092 \
+  --topic person-data-changed-topic 
+  
 
 
 {

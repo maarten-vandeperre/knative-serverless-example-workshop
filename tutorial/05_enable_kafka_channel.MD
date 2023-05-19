@@ -28,3 +28,10 @@
 knative-messaging-kafka.maarten-playground.kafka-person-data-changed-channel
 
 oc get channel
+
+
+
+
+my-kafka-cluster-kafka-bootstrap.dieter.svc:9092
+
+oc edit knativekafka knative-kafka -n knative-eventing;

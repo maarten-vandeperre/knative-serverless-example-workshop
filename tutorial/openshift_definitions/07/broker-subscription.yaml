@@ -1,0 +1,16 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: fraud-subscription
+spec:
+  broker: orders-dispatcher
+#  filter:
+#    attributes:
+#      fraudscore: high
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: knative-service-microservice-account
+      namespace: 'maarten-playground'
+#    subscriberUri: /via-broker

@@ -36,6 +36,14 @@ class AccountResource(
         return internalProcess(httpHeaders, personData, "kafka-channel")
     }
 
+    @POST
+    @Path("/via-broker")
+    @Operation(summary = "Create a notion that a person got updated/created/deleted via Knative Kafka Broker")
+    @Tag(name = "PEOPLE_API")
+    fun brokerProcess(@Context httpHeaders: HttpHeaders, personData: String): Response {
+        return internalProcess(httpHeaders, personData, "kafka-broker")
+    }
+
     fun internalProcess(httpHeaders: HttpHeaders, personData: String, source: String): Response {
         println("person update event received")
         println(personData)

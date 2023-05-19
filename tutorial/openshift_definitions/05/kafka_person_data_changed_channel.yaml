@@ -4,16 +4,14 @@ metadata:
   annotations:
     messaging.knative.dev/subscribable: v1
   name: kafka-person-data-changed-channel
-  namespace: <NAMESPACE>
+  namespace: 'maarten-playground'
   creationTimestamp: null
-  finalizers:
-    - kafkachannels.messaging.knative.dev
   labels:
     app: kafka-person-data-changed-channel
     app.kubernetes.io/component: kafka-person-data-changed-channel
     app.kubernetes.io/instance: kafka-person-data-changed-channel
     app.kubernetes.io/name: kafka-person-data-changed-channel
-    app.openshift.io/runtime-namespace: <NAMESPACE>
+    app.openshift.io/runtime-namespace: 'maarten-playground'
 spec:
   numPartitions: 10
   replicationFactor: 1
