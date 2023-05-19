@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION="0.0.2" #version of the application
+VERSION="0.0.3" #version of the application
 NAMESPACE="maarten-playground" #name of your OpenShift namespace
 REBUILD=true #whether or not the application and image need to be rebuild
 

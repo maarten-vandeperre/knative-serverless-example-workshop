@@ -15,3 +15,17 @@
   -- bin/kafka-console-consumer.sh \
   --bootstrap-server knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092 \
   --topic person-data-changed-topic
+* go to POD > psql -h localhost -d knative_demo -U postgres -W
+* select * from people;
+
+
+
+{
+"id" : "1234", 
+"source" : "monolith", 
+"specversion" : "1.0", 
+"type" : "person-data-changed", 
+"data" : "{\"ref\":\"test\"}" 
+}
+
+{"id" : "1234","source" : "monolith","specversion" : "1.0","type" : "person-data-changed","data" : "{\"ref\":\"test\"}"}
