@@ -16,24 +16,24 @@ spec:
     database.dbname: knative_demo
 #    database.server.name: people-db
 #    schema.include.list: public
-    table.include.list: people
+    table.include.list: public.people
     database.history.kafka.topic: dbhistory.people
     database.history.kafka.bootstrap.servers: 'knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092'
   tasksMax: 1
-
-
-
-  {
-    "name": "inventory-connector",
-    "config": {
-      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-      "database.hostname": "1postgres.maarten-playground.svc.cluster.local",
-      "database.port": "5432",
-      "database.user": "postgres",
-      "database.password": "postgres",
-      "database.dbname": "knative_demo",
-      "database.server.name": "people-db",
-      "table.whitelist": "public.people",
-      "database.history.kafka.topic": dbhistory.people
-    }
-  }
+#
+#
+#
+#  {
+#    "name": "inventory-connector",
+#    "config": {
+#      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+#      "database.hostname": "1postgres.maarten-playground.svc.cluster.local",
+#      "database.port": "5432",
+#      "database.user": "postgres",
+#      "database.password": "postgres",
+#      "database.dbname": "knative_demo",
+#      "database.server.name": "people-db",
+#      "table.whitelist": "public.people",
+#      "database.history.kafka.topic": dbhistory.people
+#    }
+#  }

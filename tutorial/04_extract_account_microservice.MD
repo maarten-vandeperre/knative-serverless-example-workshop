@@ -44,3 +44,27 @@
 }
 
 {"id" : "1234","source" : "monolith","specversion" : "1.0","type" : "person-data-changed","data" : "{\"ref\":\"test\"}"}
+
+
+
+oc create secret generic \
+kafka-connect-cluster-push-secret \
+--from-file=.dockerconfigjson=/rh-ee-mvandepe-auth.json \
+--type=kubernetes.io/dockerconfigjson
+
+
+
+{
+"name": "people-connector",  
+"config": {
+"connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+"database.hostname": "postgres.maarten-playground.svc.cluster.local",
+"database.port": "5432",
+"database.user": "postgres",
+"database.password": "postgres",
+"database.dbname" : "knative_demo",
+"database.server.name": "db-people",
+"table.whitelist": "public.people"
+
+}
+}
