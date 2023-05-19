@@ -5,29 +5,30 @@ import org.eclipse.microprofile.graphql.Description
 import org.eclipse.microprofile.graphql.GraphQLApi
 import org.eclipse.microprofile.graphql.Query
 import org.eclipse.microprofile.graphql.Type
+import java.util.*
 
 @GraphQLApi
 class AccountResource(
     private val searchAccountsUseCase: SearchAccountsUseCase
 ) {
 
-  @Query("allAccounts")
-  @Description("Search all accounts in the system")
-  fun allAccounts(): List<AccountData> {
-    return searchAccountsUseCase.execute(SearchAccountsUseCase.Request()).accounts.map {
-      AccountData(
-          personRef = it.personRef,
-          firstName = it.firstName,
-          lastName = it.lastName,
-          birthDate = it.birthDate,
-          addressRef = it.addressRef,
-          addressLine1 = it.addressLine1,
-          addressLine2 = it.addressLine2,
-          addressLine3 = it.addressLine3,
-          countryIsoCode = it.countryIsoCode
-      )
+    @Query("allAccounts")
+    @Description("Search all accounts in the system")
+    fun allAccounts(): List<AccountData> {
+        return searchAccountsUseCase.execute(SearchAccountsUseCase.Request()).accounts.map {
+            AccountData(
+                personRef = it.personRef,
+                firstName = it.firstName,
+                lastName = it.lastName,
+                birthDate = it.birthDate,
+                addressRef = it.addressRef,
+                addressLine1 = it.addressLine1,
+                addressLine2 = it.addressLine2,
+                addressLine3 = it.addressLine3,
+                countryIsoCode = it.countryIsoCode
+            )
+        }
     }
-  }
 }
 
 @Type("Account")

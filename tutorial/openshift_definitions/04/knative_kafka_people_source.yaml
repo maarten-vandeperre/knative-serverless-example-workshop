@@ -15,6 +15,6 @@ spec:
       kind: Service
       name: knative-service-microservice-account
       namespace: <NAMESPACE>
-    uri: /
+    uri: /via-sink
   topics:
     - person-data-changed-topic

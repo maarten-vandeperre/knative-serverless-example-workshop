@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION="0.1.1" #version of the application
+VERSION="0.1.6" #version of the application
 NAMESPACE="maarten-playground" #name of your OpenShift namespace
 REBUILD=true #whether or not the application and image need to be rebuild
 
@@ -14,12 +14,12 @@ then
 fi
 
 #create microservice account Knative service
-config="$(cat tutorial/openshift_definitions/04/knative_service_microservice_account.yaml )" #reuse definition from previous step if rebuild is required
+config="$(cat tutorial/openshift_definitions/05/knative_service_microservice_account.yaml )" #reuse definition from previous step if rebuild is required
 config="$(echo "${config//<VERSION>/$VERSION}")"
 config="$(echo "${config//<NAMESPACE>/$NAMESPACE}")"
-echo "$config" > tutorial/openshift_definitions/04/temp_knative_service_microservice_account.yaml
-oc apply -f tutorial/openshift_definitions/04/temp_knative_service_microservice_account.yaml
-rm tutorial/openshift_definitions/04/temp_knative_service_microservice_account.yaml
+echo "$config" > tutorial/openshift_definitions/05/temp_knative_service_microservice_account.yaml
+oc apply -f tutorial/openshift_definitions/05/temp_knative_service_microservice_account.yaml
+rm tutorial/openshift_definitions/05/temp_knative_service_microservice_account.yaml
 
 #enable kafka person data changed channel
 config="$(cat tutorial/openshift_definitions/05/kafka_person_data_changed_channel.yaml )"

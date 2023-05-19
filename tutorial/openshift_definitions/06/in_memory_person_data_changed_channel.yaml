@@ -1,0 +1,17 @@
+apiVersion: messaging.knative.dev/v1
+kind: InMemoryChannel
+metadata:
+  annotations:
+    messaging.knative.dev/subscribable: v1
+  name: in-memory-person-data-changed-channel
+  namespace: 'maarten-playground'
+  creationTimestamp: null
+  labels:
+    app: in-memory-person-data-changed-channel
+    app.kubernetes.io/component: in-memory-person-data-changed-channel
+    app.kubernetes.io/instance: in-memory-person-data-changed-channel
+    app.kubernetes.io/name: in-memory-person-data-changed-channel
+    app.openshift.io/runtime-namespace: 'maarten-playground'
+spec:
+  numPartitions: 10
+  replicationFactor: 1
