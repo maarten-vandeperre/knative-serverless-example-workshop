@@ -29,10 +29,10 @@
 
 
 
-* oc exec -it knative-demo-cluster-kafka-0 \
+* oc exec -it my-cluster-kafka-0 \
   -- bin/kafka-console-consumer.sh \
-  --bootstrap-server knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092 \
-  --topic dbhistory.people
+  --bootstrap-server my-cluster-kafka-bootstrap.knative-demo-maarten.svc.cluster.local:9092 \
+  --topic peoplechanged.public.people
 
 
 {
@@ -46,6 +46,11 @@
 {"id" : "1234","source" : "monolith","specversion" : "1.0","type" : "person-data-changed","data" : "{\"ref\":\"test\"}"}
 
 
+
+oc create secret generic \
+kafka-connect-cluster-push-secret \
+--from-file=.dockerconfigjson=/rh-ee-mvandepe-auth.json \
+--type=kubernetes.io/dockerconfigjson
 
 oc create secret generic \
 kafka-connect-cluster-push-secret \

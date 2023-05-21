@@ -2,7 +2,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: route-monolith
-  namespace: maarten-playground
+  namespace: <NAMESPACE>
   labels:
     app: monolith
     app.kubernetes.io/component: monolith
@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/name: monolith
     app.kubernetes.io/part-of: monolith
 spec:
-  host: monolith-maarten-playground.apps.ocp4-bm.redhat.arrowlabs.be
+  host: <HOST>
   port:
     targetPort: 8080-tcp
   tls:

@@ -1,10 +1,12 @@
 * oc login
+* docker build -t quay.io/appdev_playground/wal_postgres:0.0.1 -f tutorial/openshift_definitions/02/DockerfilePostgresWal . --platform linux/amd64
 * oc new-app \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=postgres \
   -e POSTGRES_DB=knative_demo \
   -e PGDATA=/tmp/data/pgdata \
-  postgres:15.3-alpine
+  quay.io/appdev_playground/wal_postgres:0.0.2 \
+  --name postgres
 * change service url in quarkus properties
 * go to POD > psql -h localhost -d knative_demo -U postgres -W
 * copy-paste the db-init-scrips/postgres 

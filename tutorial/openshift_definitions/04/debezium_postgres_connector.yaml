@@ -4,36 +4,20 @@ metadata:
   labels:
     strimzi.io/cluster: my-connect-cluster
   name: postgres-people-debezium-connector
-  namespace: 'maarten-playground'
+  namespace: 'knative-demo-maarten'
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:
     plugin.name: pgoutput
-    database.hostname: postgres.maarten-playground.svc.cluster.local
+    database.hostname: postgres.knative-demo-maarten.svc.cluster.local
     database.port: 5432
     database.user: postgres
     database.password: postgres
     database.dbname: knative_demo
-#    database.server.name: people-db
-#    schema.include.list: public
+    database.server.name: people-db
+    schema.include.list: public
     table.include.list: public.people
     database.history.kafka.topic: dbhistory.people
-    database.history.kafka.bootstrap.servers: 'knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092'
+    database.history.kafka.bootstrap.servers: 'my-cluster-kafka-bootstrap.knative-demo-maarten.svc.cluster.local:9092'
+    topic.prefix: peoplechanged
   tasksMax: 1
-#
-#
-#
-#  {
-#    "name": "inventory-connector",
-#    "config": {
-#      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-#      "database.hostname": "1postgres.maarten-playground.svc.cluster.local",
-#      "database.port": "5432",
-#      "database.user": "postgres",
-#      "database.password": "postgres",
-#      "database.dbname": "knative_demo",
-#      "database.server.name": "people-db",
-#      "table.whitelist": "public.people",
-#      "database.history.kafka.topic": dbhistory.people
-#    }
-#  }

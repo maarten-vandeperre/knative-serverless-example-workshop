@@ -27,7 +27,7 @@ spec:
       containers:
         - name: container
           image: >-
-            quay.io/appdev_playground/knative_demo:monolith-uberjar-<VERSION>
+            <DOCKER_IMAGE>
           ports:
             - containerPort: 8080
               protocol: TCP
