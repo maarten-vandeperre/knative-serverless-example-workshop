@@ -6,7 +6,6 @@ metadata:
 spec:
   bootstrapServers:
     - knative-demo-cluster-kafka-bootstrap.maarten-playground.svc.cluster.local:9092
-#    - my-kafka-cluster-kafka-bootstrap.dieter.svc.cluster.local:9092
 
   consumerGroup: person-data-changed-consumer-group
   consumers: 1

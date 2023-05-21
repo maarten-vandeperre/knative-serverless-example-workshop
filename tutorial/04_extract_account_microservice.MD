@@ -59,17 +59,5 @@ kafka-connect-cluster-push-secret \
 
 
 
-{
-"name": "people-connector",  
-"config": {
-"connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-"database.hostname": "postgres.maarten-playground.svc.cluster.local",
-"database.port": "5432",
-"database.user": "postgres",
-"database.password": "postgres",
-"database.dbname" : "knative_demo",
-"database.server.name": "db-people",
-"table.whitelist": "public.people"
 
-}
-}
+addresseschanged.public.addresses-changed---d398d373d5d2e6a7ae33b7f3d79604d2c5dc5708

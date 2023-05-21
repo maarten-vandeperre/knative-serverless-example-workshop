@@ -4,12 +4,12 @@ metadata:
   annotations:
     strimzi.io/use-connector-resources: 'true'
   name: my-connect-cluster
-  namespace: 'knative-demo-maarten'
+  namespace: <NAMESPACE>
 spec:
-  bootstrapServers: my-cluster-kafka-bootstrap.knative-demo-maarten.svc.cluster.local:9092
+  bootstrapServers: my-cluster-kafka-bootstrap.<NAMESPACE>.svc.cluster.local:9092
   build:
     output:
-      image: quay.io/appdev_playground/kafka-connect-cluster:latest
+      image: <DOCKER_IMAGE>
       pushSecret: kafka-connect-cluster-push-secret
       type: docker
     plugins:
