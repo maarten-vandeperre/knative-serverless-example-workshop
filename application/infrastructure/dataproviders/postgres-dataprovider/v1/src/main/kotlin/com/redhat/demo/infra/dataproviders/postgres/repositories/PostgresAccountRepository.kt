@@ -1,6 +1,7 @@
 package com.redhat.demo.infra.dataproviders.postgres.repositories
 
 import com.redhat.demo.core.usecases.repositories.v1.AccountRepository
+import com.redhat.demo.infra.dataproviders.core.repositories.JdbcTemplate
 import java.util.*
 
 class PostgresAccountRepository(

@@ -1,7 +1,8 @@
 #!/bin/sh
-VERSION="v3" #version of the application
-NAMESPACE="maarten-playground" #name of your OpenShift namespace
+VERSION="0.1.14" #version of the application
+NAMESPACE=$(cat tutorial/scripts/.namespace) #name of your OpenShift namespace
 REBUILD=true #whether or not the application and image need to be rebuild
+DOCKER_IMAGE="quay.io/appdev_playground/knative_demo:$VERSION"
 
 if $REBUILD
 then
@@ -17,6 +18,7 @@ fi
 config="$(cat tutorial/openshift_definitions/03/knative_serving_monolith.yaml )"
 config="$(echo "${config//<VERSION>/$VERSION}")"
 config="$(echo "${config//<NAMESPACE>/$NAMESPACE}")"
+config="$(echo "${config//<DOCKER_IMAGE>/$DOCKER_IMAGE}")"
 echo "$config" > tutorial/openshift_definitions/03/temp_knative_serving_monolith.yaml
 oc apply -f tutorial/openshift_definitions/03/temp_knative_serving_monolith.yaml
 rm tutorial/openshift_definitions/03/temp_knative_serving_monolith.yaml

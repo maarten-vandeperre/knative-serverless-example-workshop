@@ -1,6 +1,6 @@
 #!/bin/sh
 VERSION="0.0.6" #version of the application
-NAMESPACE="maarten-playground" #name of your OpenShift namespace
+NAMESPACE=$(cat tutorial/scripts/.namespace) #name of your OpenShift namespace
 REBUILD=true #whether or not the application and image need to be rebuild
 
 if $REBUILD

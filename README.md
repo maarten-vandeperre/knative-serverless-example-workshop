@@ -10,6 +10,7 @@ http://localhost:8080/q/graphql-ui/?
 
 security
 
+docker base path
 
 
 # knative-demo

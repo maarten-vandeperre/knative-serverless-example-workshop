@@ -1,6 +1,7 @@
 package com.redhat.demo.infra.dataproviders.postgres.repositories
 
 import com.redhat.demo.core.usecases.repositories.v1.PersonRepository
+import com.redhat.demo.infra.dataproviders.core.repositories.JdbcTemplate
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
@@ -10,7 +11,7 @@ class PostgresPersonRepository(
 ) : PersonRepository {
 
     override fun save(person: PersonRepository.DbPerson): String {
-        if(exists(person.ref)){
+        if (exists(person.ref)) {
             jdbcTemplate.execute(
                 """
                 update people 
@@ -52,7 +53,7 @@ class PostgresPersonRepository(
         ) {
             1 == it.getInt("c")
         }
-        return (result ?: 0) == 1
+        return result ?: false
     }
 
     override fun delete(ref: UUID) {

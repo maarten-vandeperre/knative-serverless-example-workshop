@@ -52,7 +52,7 @@ class DefaultUpdateAddressUseCase(
         return UpdateAddressUseCase.Response(
             addressRepository.save(
                 AddressRepository.DbAddress(
-                    ref = UUID.randomUUID(),
+                    ref = UUID.fromString(requestData.ref),
                     addressLine1 = requestData.addressLine1,
                     addressLine2 = requestData.addressLine2,
                     addressLine3 = requestData.addressLine3,

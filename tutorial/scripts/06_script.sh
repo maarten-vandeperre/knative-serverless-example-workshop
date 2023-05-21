@@ -1,6 +1,6 @@
 #!/bin/sh
 VERSION="0.1.6" #version of the application
-NAMESPACE="maarten-playground" #name of your OpenShift namespace
+NAMESPACE=$(cat tutorial/scripts/.namespace) #name of your OpenShift namespace
 
 #enable kafka person data changed channel
 config="$(cat tutorial/openshift_definitions/06/kafka_person_data_changed_channel.yaml )"

@@ -1,6 +1,7 @@
 package com.redhat.demo.infra.dataproviders.postgres.repositories
 
 import com.redhat.demo.core.usecases.repositories.v1.AddressRepository
+import com.redhat.demo.infra.dataproviders.core.repositories.JdbcTemplate
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
@@ -17,7 +18,7 @@ class PostgresAddressRepository(
                 set ref = ?, 
                 address_line1 = ?, 
                 address_line2 = ?, 
-                address_line3 = ?
+                address_line3 = ?,
                 country_code = ?
                 where ref = ?;
             """.trimIndent(),
@@ -55,7 +56,7 @@ class PostgresAddressRepository(
         ) {
             1 == it.getInt("c")
         }
-        return (result ?: 0) == 1
+        return result ?: false
     }
 
     override fun delete(ref: UUID) {

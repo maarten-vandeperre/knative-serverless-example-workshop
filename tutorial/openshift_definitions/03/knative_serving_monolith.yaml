@@ -7,6 +7,6 @@ spec:
   template:
     spec:
       containers:
-        - image: quay.io/appdev_playground/knative_demo:<VERSION>
+        - image: <DOCKER_IMAGE>
           ports:
             - containerPort: 8080

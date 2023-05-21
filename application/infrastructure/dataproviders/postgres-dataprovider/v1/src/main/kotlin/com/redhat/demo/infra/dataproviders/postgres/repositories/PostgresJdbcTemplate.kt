@@ -1,20 +1,9 @@
 package com.redhat.demo.infra.dataproviders.postgres.repositories
 
+import com.redhat.demo.infra.dataproviders.core.repositories.JdbcTemplate
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.SQLException
-
-interface JdbcTemplate {
-    fun execute(query: String, params: List<Any?> = emptyList())
-
-    @Throws(JdbcException::class)
-    fun <T> query(query: String, params: List<Any?> = emptyList(), mapper: (rs: ResultSet) -> T): T?
-
-    @Throws(JdbcException::class)
-    fun <T> queryForList(query: String, params: List<Any?> = emptyList(), mapper: (rs: ResultSet) -> T): List<T>
-
-    class JdbcException(message: String) : Exception(message)
-}
 
 class PostgresJdbcTemplate(
     private val connectionUrl: String,
@@ -52,7 +41,7 @@ class PostgresJdbcTemplate(
                         ?.use { stmt ->
                             params.forEachIndexed { index, k -> stmt.setObject(index + 1, k) }
                             val resultSet = stmt.executeQuery()
-                            if(resultSet.next()){
+                            if (resultSet.next()) {
                                 mapper(resultSet)
                             } else {
                                 null
