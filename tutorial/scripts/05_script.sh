@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION="0.1.4" #version of the application
+VERSION="0.1.5" #version of the application
 NAMESPACE=$(cat tutorial/scripts/.namespace) #name of your OpenShift namespace
 REBUILD=true #whether or not the application and image need to be rebuild
 DOCKER_IMAGE="quay.io/appdev_playground/knative_demo:microservice-address-uberjar-$VERSION"
@@ -27,7 +27,7 @@ config="$(echo "${config//<NAMESPACE>/$NAMESPACE}")"
 config="$(echo "${config//<DOCKER_IMAGE>/$DOCKER_IMAGE}")"
 echo "$config" > tutorial/openshift_definitions/05/temp_knative_service_microservice_address.yaml
 oc apply -f tutorial/openshift_definitions/05/temp_knative_service_microservice_address.yaml
-rm tutorial/openshift_definitions/05/temp_knative_service_microservice_address.yaml
+#rm tutorial/openshift_definitions/05/temp_knative_service_microservice_address.yaml
 
 #enable kafka address data changed channel
 config="$(cat tutorial/openshift_definitions/05/kafka_address_data_changed_channel.yaml )"

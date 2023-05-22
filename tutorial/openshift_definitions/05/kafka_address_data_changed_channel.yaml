@@ -13,4 +13,4 @@ metadata:
     app.openshift.io/runtime-namespace: <NAMESPACE>
 spec:
   numPartitions: 10
-  replicationFactor: 1
+  replicationFactor: 2

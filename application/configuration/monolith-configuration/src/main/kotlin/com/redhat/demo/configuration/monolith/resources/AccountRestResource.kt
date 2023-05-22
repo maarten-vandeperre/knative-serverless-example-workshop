@@ -60,6 +60,28 @@ class AccountRestResource {
     }
 
     @GET
+    @Path("/sync-kafka-channel2")
+    fun triggerSyncKafkaChannel2() {
+        println("trigger sync kafka channel 2")
+        val data = mapOf(
+            "ref" to UUID.randomUUID().toString()
+        )
+
+        val request = HttpRequest.newBuilder()
+            .uri(URI("http://kafka-channel-ingress.knative-eventing.svc.cluster.local/knative-demo-maarten/kafka-address-data-changed-channel"))
+            .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(data)))
+            .header("Ce-Id", UUID.randomUUID().toString())
+            .header("Ce-Specversion", "1.0")
+            .header("Ce-Type", "person-changed")
+            .header("Ce-Source", "monolith")
+            .header("Content-Type", "application/json")
+            .build()
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        println("response: " + response.statusCode())
+        println("response: " + response.body())
+    }
+
+    @GET
     @Path("/sync-kafka-broker")
     fun triggerSyncKafkaBroker() {
         println("trigger sync kafka broker")
