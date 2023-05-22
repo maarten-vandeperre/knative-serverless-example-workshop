@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION="0.0.18" #version of the application
+VERSION="0.0.19" #version of the application
 NAMESPACE=$(cat tutorial/scripts/.namespace) #name of your OpenShift namespace
 REBUILD=true #whether or not the application and image need to be rebuild
 APP_DOCKER_IMAGE="quay.io/appdev_playground/knative_demo:microservice-account-uberjar-$VERSION"

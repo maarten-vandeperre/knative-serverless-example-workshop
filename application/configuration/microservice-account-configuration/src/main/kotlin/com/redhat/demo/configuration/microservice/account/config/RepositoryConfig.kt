@@ -1,5 +1,6 @@
 package com.redhat.demo.configuration.microservice.account.config
 
+import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
 import com.redhat.demo.core.usecases.repositories.v1.AccountRepository
@@ -12,7 +13,6 @@ import com.redhat.demo.infra.dataproviders.inmemory.repositories.InMemoryPersonR
 import com.redhat.demo.infra.dataproviders.postgres.repositories.MongoDbAccountRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.MongoDbAddressRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.MongoDbPersonRepository
-import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresAccountRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresAddressRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresJdbcTemplate
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresPersonRepository
@@ -34,7 +34,7 @@ class RepositoryConfig(
     @ConfigProperty(name = "db.mongo.password", defaultValue = "not-set") mongoPassword: String?
 ) {
     private val postgresJdbcTemplate: JdbcTemplate?
-    private val mongoDatabase: MongoDatabase?
+    private val mongoClient: MongoClient?
     private val databaseType: DatabaseType
 
     init {
@@ -45,10 +45,10 @@ class RepositoryConfig(
         }
         if (databaseType == DatabaseType.PHYSICAL) {
             this.postgresJdbcTemplate = PostgresJdbcTemplate(postgresConnectionUrl!!, postgresUser!!, postgresPassword!!)
-            this.mongoDatabase = MongoClients.create(mongoConnectionUrl).getDatabase("microservice-account")
+            this.mongoClient = MongoClients.create(mongoConnectionUrl)
         } else {
             this.postgresJdbcTemplate = null
-            this.mongoDatabase = null
+            this.mongoClient = null
         }
     }
 
@@ -67,7 +67,7 @@ class RepositoryConfig(
     fun personMongoRepository(): PersonRepository {
         return when (databaseType) {
             DatabaseType.IN_MEMORY -> InMemoryPersonRepository()
-            DatabaseType.PHYSICAL -> MongoDbPersonRepository(mongoDatabase!!.getCollection("people"))
+            DatabaseType.PHYSICAL -> MongoDbPersonRepository(mongoClient!!.getDatabase("microservice-account").getCollection("people"))
         }
     }
 
@@ -86,7 +86,7 @@ class RepositoryConfig(
     fun addressMongoRepository(): AddressRepository {
         return when (databaseType) {
             DatabaseType.IN_MEMORY -> InMemoryAddressRepository()
-            DatabaseType.PHYSICAL -> MongoDbAddressRepository(mongoDatabase!!.getCollection("addresses"))
+            DatabaseType.PHYSICAL -> MongoDbAddressRepository(mongoClient!!.getDatabase("microservice-account").getCollection("addresses"))
         }
     }
 
@@ -95,15 +95,28 @@ class RepositoryConfig(
         return when (databaseType) {
             DatabaseType.IN_MEMORY -> InMemoryAccountRepository(addressRepository, personRepository)
             DatabaseType.PHYSICAL -> MongoDbAccountRepository(
-                mongoDatabase!!.getCollection("people"),
-                mongoDatabase!!.getCollection("addresses")
+                mongoClient!!.getDatabase("microservice-account").getCollection("people"),
+                mongoClient!!.getDatabase("microservice-account").getCollection("addresses")
             )
         }
     }
 
     @Produces
+    @Default
     fun mongoDataBase(): MongoDatabase {
-        return mongoDatabase!!
+        return mongoClient!!.getDatabase("microservice-account")
+    }
+
+    @Produces
+    @PersonMicroServiceMongo
+    fun mongoMicroServicePeopleDataBase(): MongoDatabase {
+        return mongoClient!!.getDatabase("microservice-person")
+    }
+
+    @Produces
+    @AddressMicroServiceMongo
+    fun mongoMicroServiceAddressDataBase(): MongoDatabase {
+        return mongoClient!!.getDatabase("microservice-address")
     }
 
     enum class DatabaseType {
@@ -121,3 +134,13 @@ annotation class Postgres
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
 annotation class Mongo
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
+annotation class PersonMicroServiceMongo
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
+annotation class AddressMicroServiceMongo
