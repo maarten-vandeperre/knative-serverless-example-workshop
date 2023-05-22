@@ -17,7 +17,7 @@ class WithChannelUpdatePersonRepository(
         .build()
     private val mapper = ObjectMapper()
 
-    private fun broadcastChange(ref: UUID, action: OutboxEventAction) {
+    private fun broadcastChange(ref: UUID, action: OutboxEventAction, birhtDate: String?) {
         println("trigger broadcast of update channel: " + personChangedChannelUrl)
         val data = mapOf(
             "ref" to UUID.randomUUID().toString(),
@@ -29,9 +29,10 @@ class WithChannelUpdatePersonRepository(
             .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(data)))
             .header("Ce-Id", ref.toString())
             .header("Ce-Specversion", "1.0")
-            .header("Ce-Type", "person-changed")
+            .header("Ce-Type", "person.changed." + action.name.lowercase())
             .header("Ce-Source", "microservice-person")
             .header("Content-Type", "application/json")
+            .header("birth_date", birhtDate)
             .build()
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
         println("response: " + response.statusCode())
@@ -46,7 +47,7 @@ class WithChannelUpdatePersonRepository(
             OutboxEventAction.CREATED
         }
         val result = personRepository.save(person)
-        broadcastChange(person.ref, action)
+        broadcastChange(person.ref, action, person.birthDate)
         return result
     }
 
@@ -57,7 +58,7 @@ class WithChannelUpdatePersonRepository(
     @Transactional
     override fun delete(ref: UUID) {
         personRepository.delete(ref)
-        broadcastChange(ref, OutboxEventAction.DELETED)
+        broadcastChange(ref, OutboxEventAction.DELETED, null)
     }
 
     override fun get(ref: UUID): PersonRepository.DbPerson? {

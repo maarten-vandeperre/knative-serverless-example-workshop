@@ -4,13 +4,13 @@ metadata:
   name: kafka-native-broker-trigger-person-data
 spec:
   broker: kafka-native-broker-person-data
-  filter:
-    expression: >
-      data.birthDate == "test"
+#  filter:
+#    expression: >
+#      cd.data["birthDate"] == "ok"
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: knative-service-microservice-account
-      namespace: <NAMESPACE>
+      namespace: voxxed-dry-run
     uri: /api/accounts/data-change/person-data/via-broker
