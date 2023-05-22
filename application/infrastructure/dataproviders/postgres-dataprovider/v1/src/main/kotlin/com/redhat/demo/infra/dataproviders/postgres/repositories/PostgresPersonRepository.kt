@@ -12,8 +12,9 @@ class PostgresPersonRepository(
 
     override fun save(person: PersonRepository.DbPerson): String {
         if (exists(person.ref)) {
-            jdbcTemplate.execute(
-                """
+            if(person.addressRef == null){
+                jdbcTemplate.execute(
+                    """
                 update people 
                 set ref = ?, 
                 first_name = ?, 
@@ -21,27 +22,64 @@ class PostgresPersonRepository(
                 birth_date = ?
                 where ref = ?;
             """.trimIndent(),
-                listOf(
-                    person.ref.toString(),
-                    person.firstName,
-                    person.lastName,
-                    person.birthDate,
-                    person.ref.toString()
+                    listOf(
+                        person.ref.toString(),
+                        person.firstName,
+                        person.lastName,
+                        person.birthDate,
+                        person.ref.toString()
+                    )
                 )
-            )
+            } else {
+                jdbcTemplate.execute(
+                    """
+                update people 
+                set ref = ?, 
+                first_name = ?, 
+                last_name = ?, 
+                birth_date = ?,
+                address = (select id from addresses where ref = ?)
+                where ref = ?;
+            """.trimIndent(),
+                    listOf(
+                        person.ref.toString(),
+                        person.firstName,
+                        person.lastName,
+                        person.birthDate,
+                        person.addressRef.toString(),
+                        person.ref.toString()
+                    )
+                )
+            }
+
         } else {
-            jdbcTemplate.execute(
-                """
+            if(person.addressRef == null){
+                jdbcTemplate.execute(
+                    """
                 INSERT INTO people (ref, first_name, last_name, birth_date)
                 VALUES (?, ?, ?, ?);
             """.trimIndent(),
-                listOf(
-                    person.ref.toString(),
-                    person.firstName,
-                    person.lastName,
-                    person.birthDate
+                    listOf(
+                        person.ref.toString(),
+                        person.firstName,
+                        person.lastName,
+                        person.birthDate
+                    )
                 )
-            )
+            } else {
+                jdbcTemplate.execute(
+                    """
+                INSERT INTO people (ref, first_name, last_name, birth_date, address)
+                VALUES (?, ?, ?, ?, (select id from addresses where ref = ?));
+            """.trimIndent(),
+                    listOf(
+                        person.ref.toString(),
+                        person.firstName,
+                        person.lastName,
+                        person.birthDate
+                    )
+                )
+            }
         }
         return person.ref.toString()
     }

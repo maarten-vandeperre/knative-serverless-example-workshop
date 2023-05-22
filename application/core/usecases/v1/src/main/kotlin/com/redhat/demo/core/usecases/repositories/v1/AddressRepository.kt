@@ -4,7 +4,7 @@ import java.util.*
 
 interface AddressRepository {
 
-    fun save(Address: DbAddress): String
+    fun save(address: DbAddress): String
     fun exists(ref: UUID): Boolean
     fun delete(ref: UUID)
     fun get(ref: UUID): DbAddress?

@@ -1,0 +1,17 @@
+apiVersion: messaging.knative.dev/v1beta1
+kind: KafkaChannel
+metadata:
+  annotations:
+    messaging.knative.dev/subscribable: v1
+  name: kafka-address-data-changed-channel
+  namespace: <NAMESPACE>
+  creationTimestamp: null
+  labels:
+    app: kafka-address-data-changed-channel
+    app.kubernetes.io/component: kafka-address-data-changed-channel
+    app.kubernetes.io/instance: kafka-address-data-changed-channel
+    app.kubernetes.io/name: kafka-address-data-changed-channel
+    app.openshift.io/runtime-namespace: <NAMESPACE>
+spec:
+  numPartitions: 10
+  replicationFactor: 1

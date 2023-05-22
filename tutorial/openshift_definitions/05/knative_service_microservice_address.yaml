@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  namespace: <NAMESPACE>
+  name: knative-service-microservice-address
+spec:
+  template:
+    spec:
+      containers:
+        - image: <DOCKER_IMAGE>
+          ports:
+            - containerPort: 8082

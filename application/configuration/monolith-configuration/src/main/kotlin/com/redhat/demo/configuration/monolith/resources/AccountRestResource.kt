@@ -46,7 +46,7 @@ class AccountRestResource {
         )
 
         val request = HttpRequest.newBuilder()
-            .uri(URI("http://kafka-person-data-changed-channel-kn-channel.maarten-playground.svc.cluster.local"))
+            .uri(URI("http://kafka-address-data-changed-channel-kn-channel.knative-demo-maarten.svc.cluster.local"))
             .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(data)))
             .header("Ce-Id", UUID.randomUUID().toString())
             .header("Ce-Specversion", "1.0")
