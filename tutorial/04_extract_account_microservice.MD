@@ -34,6 +34,11 @@
   --bootstrap-server my-cluster-kafka-bootstrap.knative-demo-maarten.svc.cluster.local:9092 \
   --topic peoplechanged.public.people
 
+* oc exec -it my-cluster-kafka-0 \
+  -- bin/kafka-console-consumer.sh \
+  --bootstrap-server my-cluster-kafka-bootstrap.knative-demo-maarten.svc.cluster.local:9092 \
+  --topic knative-messaging-kafka.knative-demo-maarten.kafka-address-data-changed-channel
+
 
 {
 "id" : "1234", 

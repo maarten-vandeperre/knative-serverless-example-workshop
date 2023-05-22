@@ -3,7 +3,7 @@ kind: Trigger
 metadata:
   name: kafka-native-broker-trigger-person-data
 spec:
-  broker: kafka-native-broker
+  broker: kafka-native-broker-person-data
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1

@@ -5,7 +5,6 @@ metadata:
     messaging.knative.dev/subscribable: v1
   name: kafka-address-data-changed-channel
   namespace: <NAMESPACE>
-  creationTimestamp: null
   labels:
     app: kafka-address-data-changed-channel
     app.kubernetes.io/component: kafka-address-data-changed-channel
