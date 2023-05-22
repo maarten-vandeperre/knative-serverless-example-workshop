@@ -1,6 +1,8 @@
 package com.redhat.demo.configuration.microservice.account.resources
 
 import com.redhat.demo.core.usecases.repositories.v1.PersonRepository
+import com.redhat.demo.core.usecases.v1.account.SearchAccountsUseCase
+import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.core.Context
@@ -8,17 +10,29 @@ import jakarta.ws.rs.core.HttpHeaders
 import jakarta.ws.rs.core.Response
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
-import java.security.cert.X509Certificate
 import java.time.LocalDateTime
 import java.util.*
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
-@Path("/")
+@Path("/api/accounts")
 class AccountResource(
-    private val personRepository: PersonRepository
+    private val personRepository: PersonRepository,
+    private val searchAccountsUseCase: SearchAccountsUseCase
 ) {
+
+    @GET
+    fun getAccounts(): Response {
+        return Response.ok(
+            searchAccountsUseCase.execute(SearchAccountsUseCase.Request()).accounts
+        ).build()
+    }
+
+    @POST
+    @Path("/monolith-data-changed/via-sink")
+    @Operation(summary = "Create a notion that a person got updated/created/deleted via Knative Kafka Sink")
+    @Tag(name = "PEOPLE_API")
+    fun monolithDataChangedViaSinkProcess(@Context httpHeaders: HttpHeaders, personData: String): Response {
+        return internalProcess(httpHeaders, personData, "sink")
+    }
 
     @POST
     @Path("/via-sink")

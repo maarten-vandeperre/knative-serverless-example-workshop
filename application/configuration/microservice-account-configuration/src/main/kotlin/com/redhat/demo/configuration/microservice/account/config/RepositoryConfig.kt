@@ -2,13 +2,17 @@ package com.redhat.demo.configuration.microservice.account.config
 
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
+import com.redhat.demo.core.usecases.repositories.v1.AccountRepository
 import com.redhat.demo.core.usecases.repositories.v1.AddressRepository
 import com.redhat.demo.core.usecases.repositories.v1.PersonRepository
 import com.redhat.demo.infra.dataproviders.core.repositories.JdbcTemplate
+import com.redhat.demo.infra.dataproviders.inmemory.repositories.InMemoryAccountRepository
 import com.redhat.demo.infra.dataproviders.inmemory.repositories.InMemoryAddressRepository
 import com.redhat.demo.infra.dataproviders.inmemory.repositories.InMemoryPersonRepository
+import com.redhat.demo.infra.dataproviders.postgres.repositories.MongoDbAccountRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.MongoDbAddressRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.MongoDbPersonRepository
+import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresAccountRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresAddressRepository
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresJdbcTemplate
 import com.redhat.demo.infra.dataproviders.postgres.repositories.PostgresPersonRepository
@@ -83,6 +87,17 @@ class RepositoryConfig(
         return when (databaseType) {
             DatabaseType.IN_MEMORY -> InMemoryAddressRepository()
             DatabaseType.PHYSICAL -> MongoDbAddressRepository(mongoDatabase!!.getCollection("addresses"))
+        }
+    }
+
+    @Produces
+    fun accountRepository(addressRepository: AddressRepository, personRepository: PersonRepository): AccountRepository {
+        return when (databaseType) {
+            DatabaseType.IN_MEMORY -> InMemoryAccountRepository(addressRepository, personRepository)
+            DatabaseType.PHYSICAL -> MongoDbAccountRepository(
+                mongoDatabase!!.getCollection("people"),
+                mongoDatabase!!.getCollection("addresses")
+            )
         }
     }
 
