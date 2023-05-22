@@ -46,7 +46,7 @@ class PostgresPersonRepository(
                         person.firstName,
                         person.lastName,
                         person.birthDate,
-                        person.addressRef.toString(),
+                        person.addressRef?.let { it.toString() },
                         person.ref.toString()
                     )
                 )
@@ -76,7 +76,8 @@ class PostgresPersonRepository(
                         person.ref.toString(),
                         person.firstName,
                         person.lastName,
-                        person.birthDate
+                        person.birthDate,
+                        person.addressRef?.let { it.toString() }
                     )
                 )
             }

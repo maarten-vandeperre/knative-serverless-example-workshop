@@ -4,6 +4,9 @@ metadata:
   name: kafka-native-broker-trigger-person-data
 spec:
   broker: kafka-native-broker-person-data
+  filter:
+    expression: >
+      data.birthDate == "test"
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1

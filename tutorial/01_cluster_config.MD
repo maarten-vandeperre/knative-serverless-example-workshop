@@ -28,3 +28,5 @@
 * sh tutorial/scripts/01_script.sh
 * change kafka-channel-config config map `oc get knativekafka -n knative-eventing` `oc edit knativekafka knative-kafka -n knative-eventing`
     ==> my-cluster-kafka-bootstrap.<NAMESPACE>.svc.cluster.local:9092
+
+* oc portforward postgres-796476fb54-wzv9w 5432:5432 and scripts
