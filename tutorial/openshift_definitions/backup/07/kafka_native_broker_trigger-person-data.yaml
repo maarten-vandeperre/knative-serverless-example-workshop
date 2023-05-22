@@ -1,7 +1,7 @@
 apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
-  name: kafka-native-broker-trigger
+  name: kafka-native-broker-trigger-person-data
 spec:
   broker: kafka-native-broker
   subscriber:
@@ -9,5 +9,5 @@ spec:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: knative-service-microservice-account
-      namespace: 'maarten-playground'
+      namespace: <NAMESPACE>
     uri: /via-broker

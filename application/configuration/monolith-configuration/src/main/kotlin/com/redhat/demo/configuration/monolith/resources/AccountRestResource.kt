@@ -68,7 +68,7 @@ class AccountRestResource {
         )
 
         val request = HttpRequest.newBuilder()
-            .uri(URI("http://kafka-broker-ingress.knative-eventing.svc.cluster.local/maarten-playground/kafka-native-broker"))
+            .uri(URI("http://kafka-broker-ingress.knative-eventing.svc.cluster.local/knative-demo-maarten/kafka-native-broker-person-data"))
             .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(data)))
             .header("Ce-Id", UUID.randomUUID().toString())
             .header("Ce-Specversion", "1.0")
