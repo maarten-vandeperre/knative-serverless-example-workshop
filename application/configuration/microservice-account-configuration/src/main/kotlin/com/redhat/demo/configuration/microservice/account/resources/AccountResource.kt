@@ -1,7 +1,6 @@
 package com.redhat.demo.configuration.microservice.account.resources
 
 import com.redhat.demo.configuration.microservice.account.services.AccountSyncDataService
-import com.redhat.demo.core.usecases.repositories.v1.PersonRepository
 import com.redhat.demo.core.usecases.v1.account.SearchAccountsUseCase
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
@@ -16,8 +15,7 @@ import java.util.*
 @Path("/api/accounts")
 class AccountResource(
     private val searchAccountsUseCase: SearchAccountsUseCase,
-    private val accountSyncDataService: AccountSyncDataService,
-    private val personRepository: PersonRepository
+    private val accountSyncDataService: AccountSyncDataService
 ) {
 
     @GET
@@ -75,14 +73,7 @@ class AccountResource(
     @Path("/data-change/person-data/via-broker")
     fun brokerPersonDataChangedProcess(@Context httpHeaders: HttpHeaders, data: String): Response {
         println("person data changed via broker: $data")
-        personRepository.save(PersonRepository.DbPerson(
-            ref = UUID.randomUUID(),
-            firstName = "via broker",
-            lastName = "ok",
-            addressRef = null,
-            birthDate = null
-        ))
-//        accountSyncDataService.sync()
+        accountSyncDataService.sync()
         return Response.ok().build()
     }
 
