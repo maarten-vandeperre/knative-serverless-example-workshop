@@ -1,4 +1,4 @@
-package com.redhat.demo.configuration.microservice.account
+package com.redhat.demo.configuration.microservice.address
 
 import jakarta.ws.rs.core.Application
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition
@@ -10,12 +10,10 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 
 @OpenAPIDefinition(
     tags = [
-      Tag(name = "PEOPLE_API", description = "People API documentation."),
       Tag(name = "ADDRESSES_API", description = "Addresses API documentation."),
-      Tag(name = "ACCOUNTS_API", description = "Accounts API documentation."),
     ],
     info = Info(
-        title = "Accounts Micro Service",
+        title = "Addresses Micro Service",
         version = "1.0.0",
         contact = Contact(
             name = "API Support",
@@ -26,4 +24,4 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
             url = "https://www.apache.org/licenses/LICENSE-2.0.html")
     )
 )
-class MicroServiceAccountApplication : Application()
+class MicroServiceAddressApplication : Application()
