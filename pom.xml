@@ -34,6 +34,11 @@
         <artifactId>postgresql</artifactId>
         <version>42.6.0</version>
       </dependency>
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongo-java-driver</artifactId>
+        <version>3.12.13</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -182,6 +187,29 @@
         <module>application/infrastructure/dataproviders/core-dataprovider</module>
         <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
         <module>application/infrastructure/dataproviders/postgres-dataprovider/v1</module>
+        <module>application/infrastructure/dataproviders/mongodb-dataprovider/v1</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>microservice-person</id>
+      <modules>
+        <module>application/configuration/microservice-person-configuration</module>
+        <module>application/core/domain/v1</module>
+        <module>application/core/usecases/v1</module>
+        <module>application/infrastructure/dataproviders/core-dataprovider</module>
+        <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
+        <module>application/infrastructure/dataproviders/mongodb-dataprovider/v1</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>microservice-address</id>
+      <modules>
+        <module>application/configuration/microservice-address-configuration</module>
+        <module>application/core/domain/v1</module>
+        <module>application/core/usecases/v1</module>
+        <module>application/infrastructure/dataproviders/core-dataprovider</module>
+        <module>application/infrastructure/dataproviders/in-memory-dataprovider/v1</module>
+        <module>application/infrastructure/dataproviders/mongodb-dataprovider/v1</module>
       </modules>
     </profile>
   </profiles>

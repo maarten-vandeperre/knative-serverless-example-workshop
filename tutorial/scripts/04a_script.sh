@@ -23,21 +23,13 @@ echo "$config" > tutorial/openshift_definitions/04a/temp_knative_service_microse
 oc apply -f tutorial/openshift_definitions/04a/temp_knative_service_microservice_account.yaml
 rm tutorial/openshift_definitions/04a/temp_knative_service_microservice_account.yaml
 
-#create people_changed debezium connector
-config="$(cat tutorial/openshift_definitions/04a/debezium_postgres_people_connector.yaml )"
+#create monolith_data_changed debezium connector
+config="$(cat tutorial/openshift_definitions/04a/debezium_postgres_connector.yaml )"
 config="$(echo "${config//<VERSION>/$VERSION}")"
 config="$(echo "${config//<NAMESPACE>/$NAMESPACE}")"
-echo "$config" > tutorial/openshift_definitions/04a/temp_debezium_postgres_people_connector.yaml
-oc apply -f tutorial/openshift_definitions/04a/temp_debezium_postgres_people_connector.yaml
-rm tutorial/openshift_definitions/04a/temp_debezium_postgres_people_connector.yaml
-
-#create addresses_changed debezium connector
-config="$(cat tutorial/openshift_definitions/04a/debezium_postgres_addresses_connector.yaml )"
-config="$(echo "${config//<VERSION>/$VERSION}")"
-config="$(echo "${config//<NAMESPACE>/$NAMESPACE}")"
-echo "$config" > tutorial/openshift_definitions/04a/temp_debezium_postgres_addresses_connector.yaml
-oc apply -f tutorial/openshift_definitions/04a/temp_debezium_postgres_addresses_connector.yaml
-rm tutorial/openshift_definitions/04a/temp_debezium_postgres_addresses_connector.yaml
+echo "$config" > tutorial/openshift_definitions/04a/temp_debezium_postgres_connector.yaml
+oc apply -f tutorial/openshift_definitions/04a/temp_debezium_postgres_connector.yaml
+rm tutorial/openshift_definitions/04a/temp_debezium_postgres_connector.yaml
 
 echo ""
 echo ""

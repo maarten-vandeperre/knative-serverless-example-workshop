@@ -1,0 +1,23 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  labels:
+    strimzi.io/cluster: my-connect-cluster
+  name: postgres-debezium-connector
+  namespace: <NAMESPACE>
+spec:
+  class: io.debezium.connector.postgresql.PostgresConnector
+  config:
+    plugin.name: pgoutput
+    database.hostname: postgres.<NAMESPACE>.svc.cluster.local
+    database.port: 5432
+    database.user: postgres
+    database.password: postgres
+    database.dbname: knative_demo
+    database.server.name: monolith-db
+    schema.include.list: public
+    table.include.list: public.people_changed, public.addresses_changed
+    database.history.kafka.topic: dbhistory.monolith
+    database.history.kafka.bootstrap.servers: 'my-cluster-kafka-bootstrap.<NAMESPACE>.svc.cluster.local:9092'
+    topic.prefix: monolith_data_changed
+  tasksMax: 1
