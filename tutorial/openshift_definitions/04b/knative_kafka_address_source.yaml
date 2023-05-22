@@ -1,13 +1,13 @@
 apiVersion: sources.knative.dev/v1beta1
 kind: KafkaSource
 metadata:
-  name: monolith-person-data-changed-kafka-source
+  name: monolith-address-data-changed-kafka-source
   namespace: <NAMESPACE>
 spec:
   bootstrapServers:
     - my-cluster-kafka-bootstrap.<NAMESPACE>.svc.cluster.local:9092
 
-  consumerGroup: monolith-person-data-changed-consumer-group
+  consumerGroup: monolith-address-data-changed-consumer-group
   consumers: 1
   initialOffset: latest
   sink:
@@ -16,6 +16,6 @@ spec:
       kind: Service
       name: knative-service-microservice-account
       namespace: <NAMESPACE>
-    uri: /api/accounts/monolith-data-changed/person-data/via-sink
+    uri: /api/accounts/monolith-data-changed/address-data/via-sink
   topics:
-    - monolith_data_changed.public.people_changed
+    - monolith_data_changed.public.addresses_changed

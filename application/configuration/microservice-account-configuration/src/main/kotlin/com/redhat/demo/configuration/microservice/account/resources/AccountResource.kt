@@ -1,6 +1,6 @@
 package com.redhat.demo.configuration.microservice.account.resources
 
-import com.redhat.demo.core.usecases.repositories.v1.PersonRepository
+import com.redhat.demo.configuration.microservice.account.services.AccountSyncDataService
 import com.redhat.demo.core.usecases.v1.account.SearchAccountsUseCase
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
@@ -10,13 +10,12 @@ import jakarta.ws.rs.core.HttpHeaders
 import jakarta.ws.rs.core.Response
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
-import java.time.LocalDateTime
 import java.util.*
 
 @Path("/api/accounts")
 class AccountResource(
-    private val personRepository: PersonRepository,
-    private val searchAccountsUseCase: SearchAccountsUseCase
+    private val searchAccountsUseCase: SearchAccountsUseCase,
+    private val accountSyncDataService: AccountSyncDataService
 ) {
 
     @GET
@@ -27,55 +26,55 @@ class AccountResource(
     }
 
     @POST
-    @Path("/monolith-data-changed/via-sink")
+    @Path("/monolith-data-changed/person-data/via-sink")
     @Operation(summary = "Create a notion that a person got updated/created/deleted via Knative Kafka Sink")
     @Tag(name = "PEOPLE_API")
-    fun monolithDataChangedViaSinkProcess(@Context httpHeaders: HttpHeaders, personData: String): Response {
-        return internalProcess(httpHeaders, personData, "sink")
-    }
-
-    @POST
-    @Path("/via-sink")
-    @Operation(summary = "Create a notion that a person got updated/created/deleted via Knative Kafka Sink")
-    @Tag(name = "PEOPLE_API")
-    fun sinkProcess(@Context httpHeaders: HttpHeaders, personData: String): Response {
-        return internalProcess(httpHeaders, personData, "sink")
-    }
-
-    @POST
-    @Path("/")
-    @Operation(summary = "Create a notion that a person got updated/created/deleted via Knative Kafka Channel")
-    @Tag(name = "PEOPLE_API")
-    fun channelProcess(@Context httpHeaders: HttpHeaders, personData: String): Response {
-        return internalProcess(httpHeaders, personData, "kafka-channel")
-    }
-
-    @POST
-    @Path("/via-broker")
-    @Operation(summary = "Create a notion that a person got updated/created/deleted via Knative Kafka Broker")
-    @Tag(name = "PEOPLE_API")
-    fun brokerProcess(@Context httpHeaders: HttpHeaders, personData: String): Response {
-        return internalProcess(httpHeaders, personData, "kafka-broker")
-    }
-
-    fun internalProcess(httpHeaders: HttpHeaders, personData: String, source: String): Response {
-        println("person update event received")
-        println(personData)
-        println(httpHeaders.requestHeaders)
-        println(httpHeaders.date)
-        personRepository.save(
-            PersonRepository.DbPerson(
-                ref = UUID.randomUUID(),
-                firstName = "kafka-test-" + source,
-                lastName = LocalDateTime.now().toString(),
-                birthDate = null,
-                addressRef = null
-            )
-        )
+    fun monolithPersonDataChangedViaSinkProcess(@Context httpHeaders: HttpHeaders, data: String): Response {
+        println("person data changed via monolith: $data")
+        accountSyncDataService.sync()
         return Response.ok().build()
     }
-}
 
-class PersonData {
-    var ref: String? = null
+    @POST
+    @Path("/monolith-data-changed/address-data/via-sink")
+    @Operation(summary = "Create a notion that an address got updated/created/deleted via Knative Kafka Sink")
+    @Tag(name = "PEOPLE_API")
+    fun monolithAddressDataChangedViaSinkProcess(@Context httpHeaders: HttpHeaders, data: String): Response {
+        println("address data changed via monolith: $data")
+        accountSyncDataService.sync()
+        return Response.ok().build()
+    }
+
+    @POST
+    @Path("/data-change/person-data/via-channel")
+    fun channelPersonDataChangedProcess(@Context httpHeaders: HttpHeaders, data: String): Response {
+        println("person data changed via channel: $data")
+        accountSyncDataService.sync()
+        return Response.ok().build()
+    }
+
+    @POST
+    @Path("/data-change/address-data/via-channel")
+    fun channelAddressDataChangedProcess(@Context httpHeaders: HttpHeaders, data: String): Response {
+        println("address data changed via channel: $data")
+        accountSyncDataService.sync()
+        return Response.ok().build()
+    }
+
+    @POST
+    @Path("/data-change/address-data/via-broker")
+    fun brokerAddressDataChangedProcess(@Context httpHeaders: HttpHeaders, data: String): Response {
+        println("address data changed via broker: $data")
+        accountSyncDataService.sync()
+        return Response.ok().build()
+    }
+
+    @POST
+    @Path("/data-change/person-data/via-broker")
+    fun brokerPersonDataChangedProcess(@Context httpHeaders: HttpHeaders, data: String): Response {
+        println("person data changed via broker: $data")
+        accountSyncDataService.sync()
+        return Response.ok().build()
+    }
+
 }

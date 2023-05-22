@@ -101,6 +101,11 @@ class RepositoryConfig(
         }
     }
 
+    @Produces
+    fun mongoDataBase(): MongoDatabase {
+        return mongoDatabase!!
+    }
+
     enum class DatabaseType {
         IN_MEMORY, PHYSICAL
     }
