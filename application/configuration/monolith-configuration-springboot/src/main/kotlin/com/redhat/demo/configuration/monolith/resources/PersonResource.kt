@@ -103,7 +103,7 @@ class PersonResource(
         }
     }
 
-    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/api/people", produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Get all people")
     @Tag(name = "PEOPLE_API")
     @ApiResponses(

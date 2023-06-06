@@ -17,7 +17,7 @@
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.0.3.Final</quarkus.platform.version>
         <spring.platform.version>3.1.0</spring.platform.version>
-        <spring.openapi.version>1.7.0</spring.openapi.version>
+        <spring.openapi.version>2.1.0</spring.openapi.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.0.0</surefire-plugin.version>
     </properties>
@@ -192,7 +192,7 @@
                     </dependency>
                     <dependency>
                         <groupId>org.springdoc</groupId>
-                        <artifactId>springdoc-openapi-ui</artifactId>
+                        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                         <version>${spring.openapi.version}</version>
                     </dependency>
                 </dependencies>
@@ -353,7 +353,7 @@
                     </dependency>
                     <dependency>
                         <groupId>org.springdoc</groupId>
-                        <artifactId>springdoc-openapi-ui</artifactId>
+                        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                         <version>${spring.openapi.version}</version>
                     </dependency>
                 </dependencies>
