@@ -5,8 +5,8 @@ metadata:
 spec:
   broker: kafka-native-broker-person-data
   filter:
-    expression: >
-      data.birthDate == "test"
+    attributes:
+      type: person-changed
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1
