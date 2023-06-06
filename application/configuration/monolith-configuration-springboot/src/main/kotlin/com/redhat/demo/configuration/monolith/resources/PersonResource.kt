@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController("/api/people")
+@RestController
 class PersonResource(
     private val createPersonUseCase: CreatePersonUseCase,
     private val updatePersonUseCase: UpdatePersonUseCase,
@@ -26,7 +26,7 @@ class PersonResource(
     private val getPersonUseCase: GetPersonUseCase,
     private val searchPersonUseCase: SearchPeopleUseCase
 ) {
-    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping("/api/people", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Create an person")
     @Tag(name = "PEOPLE_API")
     fun createPerson(data: RequestData): ResponseEntity<String> {
@@ -46,7 +46,7 @@ class PersonResource(
         }
     }
 
-    @PutMapping("/{ref}", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PutMapping("/api/people/{ref}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Edit an person")
     @Tag(name = "PEOPLE_API")
     fun updatePerson(@PathParam("ref") ref: String, data: RequestData): ResponseEntity<String> {
@@ -69,7 +69,7 @@ class PersonResource(
         }
     }
 
-    @DeleteMapping("/{ref}")
+    @DeleteMapping("/api/people/{ref}")
     @Operation(summary = "Delete an person")
     @Tag(name = "PEOPLE_API")
     fun deletePerson(@PathParam("ref") ref: String): ResponseEntity<Any> {
@@ -81,7 +81,7 @@ class PersonResource(
         }
     }
 
-    @GetMapping("/{ref}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/api/people/{ref}", produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Get an individual person")
     @Tag(name = "PEOPLE_API")
     @ApiResponses(

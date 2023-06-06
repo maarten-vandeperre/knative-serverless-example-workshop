@@ -22,10 +22,10 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 open class RepositoryConfig(
     //FIXME to support Spring, we need to mark the configuration class "open"
-    @Value("\${props.db.type}") dbType: String, //FIXME custom syntax in order to access properties and default values
-    @Value("\${props.db.connection_string:not-set}") connectionUrl: String,//FIXME custom syntax in order to access properties and default values
-    @Value("\${props.db.user:not-set}") user: String,//FIXME custom syntax in order to access properties and default values
-    @Value("\${props.db.password:not-set}") password: String?,//FIXME custom syntax in order to access properties and default values
+    @Value("\${db.type}") dbType: String, //FIXME custom syntax in order to access properties and default values
+    @Value("\${db.connection_string:not-set}") connectionUrl: String,//FIXME custom syntax in order to access properties and default values
+    @Value("\${db.user:not-set}") user: String,//FIXME custom syntax in order to access properties and default values
+    @Value("\${db.password:not-set}") password: String?,//FIXME custom syntax in order to access properties and default values
 ) {
     private val postgresJdbcTemplate: JdbcTemplate?
     private val databaseType: DatabaseType

@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.info.Contact
 import io.swagger.v3.oas.annotations.info.Info
 import io.swagger.v3.oas.annotations.info.License
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
 
 
 @OpenAPIDefinition(
@@ -24,4 +26,9 @@ import io.swagger.v3.oas.annotations.tags.Tag
             url = "https://www.apache.org/licenses/LICENSE-2.0.html")
     )
 )
-class MonolithApplication
+@SpringBootApplication
+open class MonolithApplication //FIXME this class should only be open to enable Spring....
+
+fun main(args: Array<String>) {
+    SpringApplication.run(MonolithApplication::class.java, *args)
+}

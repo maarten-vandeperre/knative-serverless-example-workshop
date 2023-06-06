@@ -5,6 +5,10 @@ DRY
 startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -Pmonolith
 startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -microservice-account
 
+
+Spring Boot multi module start : mvn spring-boot:run -Pmonolith-springboot -Pspring.profiles.active=inmemory -pl application/configuration/monolith-configuration-springboot
+
+
 http://localhost:8080/q/graphql-ui/?
 
 

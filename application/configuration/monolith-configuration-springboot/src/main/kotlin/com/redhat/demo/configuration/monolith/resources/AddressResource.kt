@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController("/api/addresses")
+@RestController
 class AddressResource(
     private val createAddressUseCase: CreateAddressUseCase,
     private val updateAddressUseCase: UpdateAddressUseCase,
@@ -26,7 +26,7 @@ class AddressResource(
     private val getAddressUseCase: GetAddressUseCase,
     private val searchAddressUseCase: SearchAddressesUseCase
 ) {
-    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping("/api/addresses", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Create an address")
     @Tag(name = "ADDRESSES_API")
     fun createAddress(data: RequestData): ResponseEntity<String> {
@@ -46,7 +46,7 @@ class AddressResource(
         }
     }
 
-    @PutMapping("/{ref}", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PutMapping("/api/addresses/{ref}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Edit an address")
     @Tag(name = "ADDRESSES_API")
     fun updateAddress(@PathParam("ref") ref: String, data: RequestData): ResponseEntity<String> {
@@ -69,7 +69,7 @@ class AddressResource(
         }
     }
 
-    @DeleteMapping("/{ref}")
+    @DeleteMapping("/api/addresses/{ref}")
     @Operation(summary = "Delete an address")
     @Tag(name = "ADDRESSES_API")
     fun deleteAddress(@PathParam("ref") ref: String): ResponseEntity<Any> {
@@ -81,7 +81,7 @@ class AddressResource(
         }
     }
 
-    @GetMapping("/{ref}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/api/addresses/{ref}", produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Get an individual address")
     @Tag(name = "ADDRESSES_API")
     @ApiResponses(
@@ -103,7 +103,7 @@ class AddressResource(
         }
     }
 
-    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/api/addresses", produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Get all addresses")
     @Tag(name = "ADDRESSES_API")
     @ApiResponses(

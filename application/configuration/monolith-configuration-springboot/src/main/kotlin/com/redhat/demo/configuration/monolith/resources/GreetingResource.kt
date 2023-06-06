@@ -4,9 +4,9 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController("/hello")
+@RestController
 class GreetingResource {
-    @GetMapping(produces = [MediaType.TEXT_PLAIN_VALUE])
+    @GetMapping("/hello", produces = [MediaType.TEXT_PLAIN_VALUE])
     fun hello(): String {
         return "Hello from Spring Web"
     }
