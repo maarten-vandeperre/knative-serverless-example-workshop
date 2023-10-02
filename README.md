@@ -18,7 +18,7 @@ for a bit. We're gonna slap in:
     Serverless eventing and serving, 
     as well as AMQ Streams (that's Kafka and Kafka Connect - Debezium).  
   
-    If you want the nitty-gritty details, you can find 'em right [here in our Step 1 documentation](workshop/decompose_the_monolith.MD).
+    If you want the nitty-gritty details, you can find 'em right [here in our Step 1 documentation](workshop/install_and_configure_the_operators.MD).
 
 3. Now, time for a [little presentation](workshop/presentation.pdf). We'll break down serverless concepts and give you an explanation on how OpenShift Serverless (aka Knative) is structured.
 4. Almost there, we now will wrap up the configuration of AMQ Streams, Dev Spaces and OpenShift Serverless.  
