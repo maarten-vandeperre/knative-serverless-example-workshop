@@ -1,4 +1,9 @@
 # Install and Configure the operators
+
+1. [AMQ Streams - Kafka](#amq-streams---install-operator)
+2. [Dev spaces](#dev-spaces---install-operator)
+3. [OpenShift serverless - Knative](#openshift-serverless--knative----install-operator)
+
 ## AMQ Streams - Install Operator
 1. Step 1  
     ![Install AMQ Streams operator step 1](img/1_install_amq_streams_operator.png "Install AMQ Streams operator step 1")

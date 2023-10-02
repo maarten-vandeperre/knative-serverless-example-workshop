@@ -1,5 +1,10 @@
 # Wrap up operator config
 
+1. [Dev spaces](#dev-spaces)
+2. [Metadata configuration](#metadata-configuration)
+3. [AMQ Streams - Kafka](#amq-streams---kafka)
+4. [OpenShift serverless - Knative](#openshift-serverless---knative)
+
 ## Dev spaces
 1. Open specifications tab.  
    ![Install AMQ Streams operator step 1](img/2_configure_dev_spaces_1.png "Install AMQ Streams operator step 1")
