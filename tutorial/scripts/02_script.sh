@@ -1,10 +1,11 @@
 #!/bin/sh
 VERSION="0.0.34" #version of the application
 NAMESPACE=$(cat tutorial/scripts/.namespace) #name of your OpenShift namespace
+ROOT_DOMAIN=$(cat tutorial/scripts/.root_domain) #domain of your OpenShift sandbox
 REBUILD=false #whether or not the application and image need to be rebuild
 CONFIGURE=true #whether or not the config files should already be ajusted
 DOCKER_IMAGE="quay.io/appdev_playground/knative_demo:monolith-uberjar-$VERSION"
-ROUTE_HOST="monolith-$NAMESPACE.apps.ocp4-bm.redhat.arrowlabs.be"
+ROUTE_HOST="monolith-$NAMESPACE.$ROOT_DOMAIN"
 
 if $REBUILD
 then
