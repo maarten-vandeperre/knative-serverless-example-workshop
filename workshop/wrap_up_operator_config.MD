@@ -127,6 +127,16 @@ base domain from the OpenShift sandbox. _For us, it is "apps.cluster-gq27g.gq27g
    ![Install AMQ Streams operator step 1](img/2_serverless_validate_eventing_and_serving.png "Install AMQ Streams operator step 1")
 
 
+7. Open "Knative Kafka" tab.  
+   ![Install AMQ Streams operator step 1](img/4_configure_knative_kafka.png "Install AMQ Streams operator step 1")
+   
+
+
+8. Create the Knative Kafka cluster. !!! list all the brokers (from the namespaces) you want to use.  
+   ![Install AMQ Streams operator step 1](img/4_configure_knative_kafka_2.png "Install AMQ Streams operator step 1")
+   
+
+
 
    
 

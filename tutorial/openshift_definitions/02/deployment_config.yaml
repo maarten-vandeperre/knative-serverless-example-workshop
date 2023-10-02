@@ -33,7 +33,10 @@ spec:
               protocol: TCP
             - containerPort: 8443
               protocol: TCP
-          env: []
+          env:
+            - name: db.connection_string
+              value: >-
+                jdbc:postgresql://postgres.<NAMESPACE>.svc.cluster.local:5432/knative_demo
       imagePullSecrets: []
   strategy:
     type: RollingUpdate
