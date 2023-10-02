@@ -19,7 +19,7 @@ for a bit. We're gonna slap in:
   
     If you want the nitty-gritty details, you can find 'em right [here in our Step 1 documentation](workshop/decompose_the_monolith.MD).
 
-2. Now, time for a little presentation. We'll break down serverless concepts and give you the 411 on how OpenShift Serverless (aka Knative) is structured.
+2. Now, time for a [little presentation](workshop/presentation.pdf). We'll break down serverless concepts and give you an explanation on how OpenShift Serverless (aka Knative) is structured.
 3. Almost there, we now will wrap up the configuration of AMQ Streams, Dev Spaces and OpenShift Serverless.  
    For the full scoop on this step, check out [our Step 3 documentation](workshop/wrap_up_operator_config.MD).
 3. And now, it's our turn to play the technical leads or DevOps wizards. We're going to take that big ol' monolithic app and start breaking it down into some snazzy serverless (micro-)services. 
