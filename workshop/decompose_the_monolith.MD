@@ -76,7 +76,7 @@ In order to validate if it ran successfully, you can check the output of the mon
 ![](img/curl_serverless_serving_get_route_monolith.png "")
 ![](img/curl_serverless_serving.png "")
 
-## 2.5. Deploy the account microservice with OpenShift Serverless - serving
+## 2.5. Deploy the account microservice with OpenShift Serverless - serving & Source to sink config
 Within this step, we will extract the account logic (i.e., account microservice) from the monolith. Whenever changes are happening
 on the monolith, Debezium will detect them and add them to a Kafka topic. There will be a source to sink configuration in place,
 which will trigger an account microservice data sync when such a message is put on the topic.
