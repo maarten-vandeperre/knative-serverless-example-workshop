@@ -43,7 +43,7 @@
    ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_3_workspace.png "Install AMQ Streams operator step 1")
  
 
-9. Wait for the provisioning of the workspace.  
+9. Wait for the provisioning of the workspace (can take some minutes as well).  
    ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_4_provisioning.png "Install AMQ Streams operator step 1")
  
 
