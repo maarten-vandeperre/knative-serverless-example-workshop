@@ -10,3 +10,10 @@ spec:
         - image: <DOCKER_IMAGE>
           ports:
             - containerPort: 8083
+          env:
+            - name: channel.address_changed.url #copy-paste error: should be fixed => rename address to person
+              value: >-
+                http://kafka-broker-ingress.knative-eventing.svc.cluster.local/<NAMESPACE>/kafka-native-broker-person-data
+            - name: db.mongo.connection_string
+              value: >-
+                mongodb://mongo:mongo@knative-mongo.<NAMESPACE>.svc.cluster.local:27017

@@ -10,3 +10,10 @@ spec:
         - image: <DOCKER_IMAGE>
           ports:
             - containerPort: 8082
+          env:
+            - name: channel.address_changed.url
+              value: >-
+                http://kafka-address-data-changed-channel-kn-channel.<NAMESPACE>.svc.cluster.local
+            - name: db.mongo.connection_string
+              value: >-
+                mongodb://mongo:mongo@knative-mongo.<NAMESPACE>.svc.cluster.local:27017

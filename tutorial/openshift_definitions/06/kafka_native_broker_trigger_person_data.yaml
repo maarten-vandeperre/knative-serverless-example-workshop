@@ -12,5 +12,5 @@ spec:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: knative-service-microservice-account
-      namespace: voxxed-dry-run
+      namespace: <NAMESPACE>
     uri: /api/accounts/data-change/person-data/via-broker
