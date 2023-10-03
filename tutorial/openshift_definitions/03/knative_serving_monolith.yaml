@@ -10,3 +10,7 @@ spec:
         - image: <DOCKER_IMAGE>
           ports:
             - containerPort: 8080
+          env:
+            - name: db.connection_string
+              value: >-
+                jdbc:postgresql://postgres.<NAMESPACE>.svc.cluster.local:5432/knative_demo
