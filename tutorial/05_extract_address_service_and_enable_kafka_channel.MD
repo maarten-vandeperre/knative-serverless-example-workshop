@@ -35,3 +35,18 @@ oc get channel
 my-kafka-cluster-kafka-bootstrap.dieter.svc:9092
 
 oc edit knativekafka knative-kafka -n knative-eventing;
+
+
+
+
+
+
+* oc exec -it my-cluster-kafka-0 \
+  -- bin/kafka-console-producer.sh \
+  --bootstrap-server my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
+  --topic monolith_data_changed.public.people_changed
+*
+* oc exec -it my-cluster-kafka-0 \
+  -- bin/kafka-console-consumer.sh \
+  --bootstrap-server my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
+  --topic monolith_data_changed.public.people_changed

@@ -31,8 +31,8 @@
 
 * oc exec -it my-cluster-kafka-0 \
   -- bin/kafka-console-consumer.sh \
-  --bootstrap-server my-cluster-kafka-bootstrap.knative-demo-maarten.svc.cluster.local:9092 \
-  --topic peoplechanged.public.people
+  --bootstrap-server my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
+  --topic monolith_data_changed.public.people_changed
 
 * oc exec -it my-cluster-kafka-0 \
   -- bin/kafka-console-consumer.sh \

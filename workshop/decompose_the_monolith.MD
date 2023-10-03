@@ -73,3 +73,13 @@ sh tutorial/scripts/03_script.sh
 ```
 In order to validate if it ran successfully, you can check the output of the monolith route
 ![CURL serverless serving](img/curl_serverless_serving.png "CURL serverless serving")
+
+## WIP: 2.5. Deploy the account microservice with OpenShift Serverless - serving
+And sync with Debezium
+```shell
+sh tutorial/scripts/04a_script.sh
+sh tutorial/scripts/04b_script.sh
+```
+In order to validate if it ran successfully, you can check the output of the monolith route
+![CURL serverless serving](img/curl_serverless_serving.png "CURL serverless serving")
+https://knative-service-microservice-account-demo-project.apps.cluster-l2nk9.l2nk9.sandbox1488.opentlc.com/api/accounts

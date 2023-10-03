@@ -7,44 +7,44 @@
 
 ## Dev spaces
 1. Open specifications tab.  
-   ![Install AMQ Streams operator step 1](img/2_configure_dev_spaces_1.png "Install AMQ Streams operator step 1")
+   ![](img/2_configure_dev_spaces_1.png "")
   
 
 2. Click "create Che cluster":  
    _A cloud development environment (CDE) service for OpenShift.
    Built on the open source Eclipse Che project, Red Hat OpenShift Dev Spaces uses Kubernetes and containers
    to provide developers and other IT team members with a consistent, secure, and zero-configuration development environment._
-   ![Install AMQ Streams operator step 1](img/2_create_dev_spaces_2.png "Install AMQ Streams operator step 1")
+   ![](img/2_create_dev_spaces_2.png "")
  
 
 3. Create Che cluster with default settings.
-   ![Install AMQ Streams operator step 1](img/2_create_dev_spaces_3.png "Install AMQ Streams operator step 1")
+   ![](img/2_create_dev_spaces_3.png "")
  
 
 4. Select the route for your OpenShift dev space (it can take some minutes for this to pop up). 
-   ![Install AMQ Streams operator step 1](img/2_dev_spaces_route.png "Install AMQ Streams operator step 1")
+   ![](img/2_dev_spaces_route.png "")
    Or
-   ![Install AMQ Streams operator step 1](img/2_dev_spaces_route2.png "Install AMQ Streams operator step 1")
+   ![](img/2_dev_spaces_route2.png "")
  
 
 5. Click "Login with OpenShift".
-   ![Install AMQ Streams operator step 1](img/2_dev_spaces_login_screen.png "Install AMQ Streams operator step 1")
+   ![](img/2_dev_spaces_login_screen.png "")
  
 
 6. Fill in login credentials.
-   ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_1_log_in.png "Install AMQ Streams operator step 1")
+   ![](img/5_configure_dev_spaces_1_log_in.png "")
  
 
 7. Allow the selected permissions.
-   ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_2.png "Install AMQ Streams operator step 1")
+   ![](img/5_configure_dev_spaces_2.png "")
  
 
 8. Link the current workshop GitHub repository (https://github.com/maarten-vandeperre/knative-serverless-example-workshop). 
-   ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_3_workspace.png "Install AMQ Streams operator step 1")
+   ![](img/5_configure_dev_spaces_3_workspace.png "")
  
 
 9. Wait for the provisioning of the workspace (can take some minutes as well).  
-   ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_4_provisioning.png "Install AMQ Streams operator step 1")
+   ![](img/5_configure_dev_spaces_4_provisioning.png "")
  
 
 10. Open a terminal and start exploring. E.g.,  
@@ -54,7 +54,7 @@
       ```shell
       oc get pod
       ``` 
-      ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_5.png "Install AMQ Streams operator step 1")
+      ![](img/5_configure_dev_spaces_5.png "")
 
 ## Metadata configuration
 1. Make sure you're using the created project  
@@ -65,29 +65,45 @@
 project name. _For us, it is "demo-project"_
 3. Change the content of the tutorial/scripts/.root_domain file (in the dev spaces workspace) to your 
 base domain from the OpenShift sandbox. _For us, it is "apps.cluster-gq27g.gq27g.sandbox3037.opentlc.com"_
-![Install AMQ Streams operator step 1](img/base_domain.png "Install AMQ Streams operator step 1")
+![](img/base_domain.png "")
+   4. Fetch a Quay.io CLI secret in order to execute docker push commands to your Quay repository (will be required for debezium).
+      1. Go to quay.io.
+         ![](img/quay_1_select_user.png "")
+      2. Go to user settings.
+         ![](img/quay_2_go_to_user_settings.png "")
+      3. Click "generate encrypted password"
+         ![](img/quay_3_generate_encrypted_password.png "")
+      4. Store the encrypted password in rh-ee-mvandepe-auth.json file in the root of the project.
+         (i.e., replace <to be replaced> with it).
+      5. Store configuration in a secret
+         ```shell
+            oc create secret generic \
+                kafka-connect-cluster-push-secret \
+                --from-file=.dockerconfigjson=./rh-ee-mvandepe-auth.json \
+                --type=kubernetes.io/dockerconfigjson
+         ```
 
 
 
 ## AMQ Streams - Kafka
 1. Open Kafka tab.  
-   ![Install AMQ Streams operator step 1](img/3_configure_kafka_1.png "Install AMQ Streams operator step 1")
+   ![](img/3_configure_kafka_1.png "")
 
 
 2. Click "create Kafka" (in the current namespace).
-   ![Install AMQ Streams operator step 1](img/3_configure_kafka_2.png "Install AMQ Streams operator step 1")
+   ![](img/3_configure_kafka_2.png "")
  
 
 3. Click "create Kafka with default settings".  
-   ![Install AMQ Streams operator step 1](img/3_configure_kafka_3.png "Install AMQ Streams operator step 1")
+   ![](img/3_configure_kafka_3.png "")
   
 
 4. Check for resources to be provisioned.
-   ![Install AMQ Streams operator step 1](img/3_configure_kafka_4_resources.png "Install AMQ Streams operator step 1")
+   ![](img/3_configure_kafka_4_resources.png "")
    
 
 5. When all resources are available, the cluster status should reach the ready state.
-   ![Install AMQ Streams operator step 1](img/3_configure_kafka_5_status_ready.png "Install AMQ Streams operator step 1")
+   ![](img/3_configure_kafka_5_status_ready.png "")
 
 
 6. Create the Kafka connect cluster (Debezium connector):  
@@ -99,49 +115,52 @@ base domain from the OpenShift sandbox. _For us, it is "apps.cluster-gq27g.gq27g
 
 
 7. Created Kafka Connect cluster should be visible in the UI.
-   ![Install AMQ Streams operator step 1](img/3_configure_kafka_6_kafka_connect_1.png "Install AMQ Streams operator step 1")
+   ![](img/3_configure_kafka_6_kafka_connect_1.png "")
 
 
 
 ## OpenShift serverless - Knative
 1. Open "Knative Eventing" tab.  
-   ![Install AMQ Streams operator step 1](img/2_configure_serverless_eventing_1.png "Install AMQ Streams operator step 1")
+   ![](img/2_configure_serverless_eventing_1.png "")
 
 
 2. Click "create Knative eventing".  
    **!!! This should be created in the "knative-eventing" namespace !!!**
-   ![Install AMQ Streams operator step 1](img/2_configure_serverless_eventing_2.png "Install AMQ Streams operator step 1")
+   ![](img/2_configure_serverless_eventing_2.png "")
  
 
 3. Open "Knative Serving" tab.   
-   ![Install AMQ Streams operator step 1](img/2_configure_serverless_serving_1.png "Install AMQ Streams operator step 1")
+   ![](img/2_configure_serverless_serving_1.png "")
   
 
 4. Click "create Knative serving".  
    **!!! This should be created in the "knative-serving" namespace !!!**
-   ![Install AMQ Streams operator step 1](img/2_configure_serverless_serving_2.png "Install AMQ Streams operator step 1")
+   ![](img/2_configure_serverless_serving_2.png "")
    
 
 5. Create with default values.
-   ![Install AMQ Streams operator step 1](img/2_configure_serverless_serving_3.png "Install AMQ Streams operator step 1")
+   ![](img/2_configure_serverless_serving_3.png "")
    
 
 6. When all resources are provisioned, you should be able to see the serverless section for all namespaces.  
    We'll check for our "demo-project" namespace.
-   ![Install AMQ Streams operator step 1](img/2_serverless_validate_eventing_and_serving.png "Install AMQ Streams operator step 1")
+   ![](img/2_serverless_validate_eventing_and_serving.png "")
 
 
 7. Open "Knative Kafka" tab.  
-   ![Install AMQ Streams operator step 1](img/4_configure_knative_kafka.png "Install AMQ Streams operator step 1")
+   ![](img/4_configure_knative_kafka.png "")
    
 
 
-8. Create the Knative Kafka cluster. !!! list all the brokers (from the namespaces) you want to use. (If you followed our namings, 
+8. Create the Knative Kafka cluster. !!! list all the brokers (from the namespaces) you want to use for broker and channel and enable source and sink. 
+ If you followed our namings, 
 it should be:  
    ```shell
    my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092
    ```
-   ![Install AMQ Streams operator step 1](img/4_configure_knative_kafka_2.png "Install AMQ Streams operator step 1")
+   ![](img/4_configure_knative_kafka_2_channel.png "")
+   ![](img/4_configure_knative_kafka_2_broker.png "")
+   ![](img/4_configure_knative_kafka_2_source_and_sink.png "")
    
 
 
