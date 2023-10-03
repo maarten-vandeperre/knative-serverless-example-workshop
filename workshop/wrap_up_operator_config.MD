@@ -74,7 +74,7 @@ base domain from the OpenShift sandbox. _For us, it is "apps.cluster-gq27g.gq27g
    ![Install AMQ Streams operator step 1](img/3_configure_kafka_1.png "Install AMQ Streams operator step 1")
 
 
-2. Click "create Kafka".
+2. Click "create Kafka" (in the current namespace).
    ![Install AMQ Streams operator step 1](img/3_configure_kafka_2.png "Install AMQ Streams operator step 1")
  
 
