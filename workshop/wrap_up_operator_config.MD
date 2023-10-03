@@ -57,9 +57,13 @@
       ![Install AMQ Streams operator step 1](img/5_configure_dev_spaces_5.png "Install AMQ Streams operator step 1")
 
 ## Metadata configuration
-1. Change the content of the tutorial/scripts/.namespace file (in the dev spaces workspace) to your 
+1. Make sure you're using the created project  
+   ```shell
+   oc project demo-project
+   ```
+2. Change the content of the tutorial/scripts/.namespace file (in the dev spaces workspace) to your 
 project name. _For us, it is "demo-project"_
-2. Change the content of the tutorial/scripts/.root_domain file (in the dev spaces workspace) to your 
+3. Change the content of the tutorial/scripts/.root_domain file (in the dev spaces workspace) to your 
 base domain from the OpenShift sandbox. _For us, it is "apps.cluster-gq27g.gq27g.sandbox3037.opentlc.com"_
 ![Install AMQ Streams operator step 1](img/base_domain.png "Install AMQ Streams operator step 1")
 
