@@ -64,8 +64,12 @@ oc new-app \
 ```shell
 sh tutorial/scripts/02_script.sh
 ```
+In order to validate if it ran successfully, you can check the output of the monolith route
+![CURL Monolith k8s deployment](img/curl_monolith_k8s_deployment.png "CURL Monolith k8s deployment")
 
 ## 2.4. Deploy the monolith with OpenShift Serverless - serving
 ```shell
 sh tutorial/scripts/03_script.sh
 ```
+In order to validate if it ran successfully, you can check the output of the monolith route
+![CURL serverless serving](img/curl_serverless_serving.png "CURL serverless serving")
