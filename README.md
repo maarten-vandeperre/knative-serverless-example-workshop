@@ -20,7 +20,8 @@ for a bit. We're gonna slap in:
   
     If you want the nitty-gritty details, you can find 'em right [here in our Step 1 documentation](workshop/install_and_configure_the_operators.MD).
 
-3. Now, time for a [little presentation](workshop/presentation.pdf). We'll break down serverless concepts and give you an explanation on how OpenShift Serverless (aka Knative) is structured.
+3. Now, time for a [little presentation](workshop/presentation.pdf). We'll break down serverless concepts and give you an explanation on how OpenShift Serverless (aka Knative) is structured. 
+In order to speed up things, take the first 3 steps of next section before starting the presentation (i.e., up until the click "create Che cluster").
 4. Almost there, we now will wrap up the configuration of AMQ Streams, Dev Spaces and OpenShift Serverless.  
    For the full scoop on this step, check out [our Step 3 documentation](workshop/wrap_up_operator_config.MD).
 5. And now, it's our turn to play the technical leads or DevOps wizards. We're going to take that big ol' monolithic app and start breaking it down into some snazzy serverless (micro-)services. 

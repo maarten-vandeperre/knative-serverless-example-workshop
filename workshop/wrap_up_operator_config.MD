@@ -21,7 +21,7 @@
    ![Install AMQ Streams operator step 1](img/2_create_dev_spaces_3.png "Install AMQ Streams operator step 1")
  
 
-4. Select the route for your OpenShift dev space. 
+4. Select the route for your OpenShift dev space (it can take some minutes for this to pop up). 
    ![Install AMQ Streams operator step 1](img/2_dev_spaces_route.png "Install AMQ Streams operator step 1")
    Or
    ![Install AMQ Streams operator step 1](img/2_dev_spaces_route2.png "Install AMQ Streams operator step 1")
