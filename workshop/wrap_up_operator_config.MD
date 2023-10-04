@@ -76,11 +76,10 @@ project name. _For us, it is "demo-project"_
          ![](img/quay_2_go_to_user_settings.png "")
       3. Click "generate encrypted password"
          ![](img/quay_3_generate_encrypted_password.png "")
-      4. Go to Kubernetes secret and download the YAML file
-         ![](img/quay_4_get_kubernetes_secret.png "")
+      4. Go to Docker config and view the password.
+         ![](img/quay_passwd.png "")
       5. Store the encrypted password in rh-ee-mvandepe-auth.json file in the root of the project.
          (i.e., replace <to be replaced> with it).
-         ![](img/quay_5_put_secret.png "")
       6. Store configuration in a secret
          ```shell
             oc create secret generic \
