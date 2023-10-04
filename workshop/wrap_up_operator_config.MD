@@ -63,10 +63,13 @@
    ```
 2. Change the content of the tutorial/scripts/.namespace file (in the dev spaces workspace) to your 
 project name. _For us, it is "demo-project"_
-3. Change the content of the tutorial/scripts/.root_domain file (in the dev spaces workspace) to your 
-base domain from the OpenShift sandbox. _For us, it is "apps.cluster-gq27g.gq27g.sandbox3037.opentlc.com"_
-![](img/base_domain.png "")
-   4. Fetch a Quay.io CLI secret in order to execute docker push commands to your Quay repository (will be required for debezium).
+3. Change the content of the tutorial/scripts/.root_domain file (in the dev spaces workspace) to your
+   base domain from the OpenShift sandbox. _For us, it is "apps.cluster-gq27g.gq27g.sandbox3037.opentlc.com"_
+   ![](img/base_domain.png "")
+4. Do a find and replace on the domain
+   ![](img/replace_in_files_1.png "")
+   ![](img/replace_in_files_2.png "")
+5. Fetch a Quay.io CLI secret in order to execute docker push commands to your Quay repository (will be required for debezium).
       1. Go to quay.io.
          ![](img/quay_1_select_user.png "")
       2. Go to user settings.
