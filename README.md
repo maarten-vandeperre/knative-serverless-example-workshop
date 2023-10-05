@@ -35,3 +35,31 @@ It's gonna be like digital Jenga!
     For the full scoop on this step, check out [our Step 4 documentation](workshop/decompose_the_monolith.MD).
 
 Get ready to dive into the world of Knative Serverless with us! 🚀
+
+## Extra: enable CamelK
+//TODO extend text
+* Install CamelK operator
+  * Create Binding:
+  Go to YAML view (and wait some minutes for integration and binding to be created)
+   ```yaml
+     apiVersion: camel.apache.org/v1
+     kind: KameletBinding
+     metadata:
+      name: log-sink-binding
+      namespace: demo-project
+     spec:
+       source:
+         ref:
+           kind: KafkaChannel
+           apiVersion: messaging.knative.dev/v1beta1
+           name: kafka-address-data-changed-channel
+       sink:
+         ref:
+           kind: Kamelet
+           apiVersion: camel.apache.org/v1
+           name: log-sink
+   ```
+* wget https://mirror.openshift.com/pub/openshift-v4/clients/camel-k/1.10.2/camel-k-client-1.10.2-linux-64bit.tar.gz
+* tar -xvf camel-k-client-1.10.2-linux-64bit.tar.gz 
+* ./kamel get
+* ./kamel log log-sink-binding
