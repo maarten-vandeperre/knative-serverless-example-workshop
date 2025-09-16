@@ -61,3 +61,25 @@ sh tutorial/scripts/02_script.sh
 ```shell
 sh tutorial/scripts/03_script.sh
 ```
+
+## Debug
+```shell
+oc get pod
+```
+```shell
+oc port-forward knative-mongo-c9b4cf7f-pg5fw 27017:27017
+```
+
+## Showcase Debezium
+```shell
+curl --location 'https://knative-serving-monolith-demo-project.apps.cluster-8f4q9.8f4q9.sandbox1055.opentlc.com/api/people' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Maarten @ Monolith",
+    "lastName": "Vandeperre",
+    "birthDate": "17/04/1989",
+    "addressRef": "4f1ce413-ea9a-47eb-8e4a-ad81c89a2fed"
+}'
+```
+  
+Check Mongo: person not in the person microservice database, but it is in the account person database. Hence, the CDC-pipeline worked.
