@@ -1,7 +1,7 @@
 #!/bin/sh
 NAMESPACE=$(cat tutorial/scripts/.namespace) #name of your OpenShift namespace
 DOCKER_IMAGE="quay.io/appdev_playground/kafka-connect-cluster:latest"
-CONFIGURE=false #whether or not the config files should already be ajusted
+CONFIGURE=true #whether or not the config files should already be ajusted
 
 if $CONFIGURE
 then

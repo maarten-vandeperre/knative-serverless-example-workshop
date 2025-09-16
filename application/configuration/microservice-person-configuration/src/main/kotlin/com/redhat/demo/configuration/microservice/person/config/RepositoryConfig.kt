@@ -16,7 +16,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty
 class RepositoryConfig(
     @ConfigProperty(name = "db.type") dbType: String,
     @ConfigProperty(name = "db.mongo.connection_string", defaultValue = "not-set") mongoConnectionUrl: String,
-    @ConfigProperty(name = "channel.address_changed.url", defaultValue = "not-set") val personChangedChannelUrl: String
+    @ConfigProperty(name = "channel.address_changed.url", defaultValue = "not-set") val personChangedChannelUrl: String //copy-paste error: should be fixed => rename address to person
 ) {
     private val mongoDatabase: MongoDatabase?
     private val databaseType: DatabaseType
